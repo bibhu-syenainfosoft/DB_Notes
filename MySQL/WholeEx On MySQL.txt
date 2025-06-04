@@ -1800,7 +1800,7 @@ select * from emp e1 where 3>(select count(distinct salary) from emp e2 where e2
                                             **END OF MYSQL COURSE**
                                               ~~~~~~~~~~~~~~~~~~~
 			                       ~~~~~~~~~~~~~~~~~
-						~~~~~~~~~~~~~~~     												                 ~~~~~~~~~~~~~
+						~~~~~~~~~~~~~~~     											 ~~~~~~~~~~~~~
 						  ~~~~~~~~~~~
 						   ~~~~~~~~~
 						    ~~~~~~~

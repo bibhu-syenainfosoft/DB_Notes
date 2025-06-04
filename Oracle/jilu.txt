@@ -1,2 +1,0 @@
-select * from abc;
-insert into abc values(33,'Rahul');
