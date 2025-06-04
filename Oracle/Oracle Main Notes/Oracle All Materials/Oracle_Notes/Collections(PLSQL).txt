@@ -1,0 +1,226 @@
+				COLLECTIONS
+				=============
+	- Collection is a group of elements of particular data type and elements are accessed by using index.PL/SQL supporting  three types of collections those are,
+		
+		1. PL/SQL table (or) Associated array (or) Index by table
+		2. Varray
+		3. Nested table
+
+1.PL/SQL table:
+=============
+	- PL/SQL table is a user defined type which is used to store number of data items either integers or characters.When we use PL/SQL table then we follow the following two steps mechanism.
+
+step1: Declare Type:
+==================
+syntax:
+=======
+Type typename is table of datatype(size) Index by binary_integer;
+
+step2: Declare Variable:
+======================
+syntax:
+======
+variablename typename;
+
+Ex1: Write a pl/sql program to print interger elements by using collection?
+DECLARE
+TYPE NUM_ARRAY IS TABLE OF NUMBER(4) INDEX BY BINARY_INTEGER;
+X NUM_ARRAY;
+BEGIN
+FOR I IN 1..10
+LOOP
+X(I):=I*10;
+DBMS_OUTPUT.PUT_LINE(X(I));
+END LOOP;
+END;
+/
+
+output:
+======
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+
+Ex2: Write a pl/sql program to print all departments names by using collection?
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF VARCHAR2(10) INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+BEGIN
+FOR I IN 1..4
+LOOP
+SELECT DNAME INTO D(I) FROM DEPT WHERE DEPTNO=I*10;
+DBMS_OUTPUT.PUT_LINE(D(I));
+END LOOP;
+END;
+/
+
+output:
+======
+ACCOUNTING
+RESEARCH
+SALES
+OPERATIONS
+
+Note:
+=====
+	- In the above example select statement is inside a loop so that no.of request is going to increse on database and reduce performance.To overcome this problem we use "Bulk Collect" clause.
+
+Bulk Collect:
+============
+	- by using bulk collect in a single request we can get all elements from database server and store those elements in a collection.so that bulk collect reduce number of trips to database server and improves performance.
+
+Ex:
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF VARCHAR2(10) INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+BEGIN
+SELECT DNAME BULK COLLECT INTO D FROM DEPT;
+FOR I IN 1..4
+LOOP
+DBMS_OUTPUT.PUT_LINE(D(I));
+END LOOP;
+END;
+/
+
+output:
+======
+ACCOUNTING
+RESEARCH
+SALES
+OPERATIONS
+
+Collection Methods:
+==================
+First	: return index value of the first element.
+Last	: return index value of the last element.
+Next	: return index value of the next element.
+Prior	: return index value of previous element.
+
+Note : All these methods are used by the collection name.
+Syntax:
+======
+	<collection name>.<method>
+
+Ex:
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF VARCHAR2(10) INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+BEGIN
+SELECT DNAME BULK COLLECT INTO D FROM DEPT;
+FOR I IN D.FIRST..D.LAST
+LOOP
+DBMS_OUTPUT.PUT_LINE(D(I));
+END LOOP;
+END;
+/
+
+output:
+======
+ACCOUNTING
+RESEARCH
+SALES
+OPERATIONS
+
+Ex on Bulk collecting with Forward Navigation using "For"loop with records type:
+=====================================================================
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF DEPT%ROWTYPE INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+BEGIN
+SELECT * BULK COLLECT INTO D FROM DEPT;
+FOR I IN D.FIRST..D.LAST
+LOOP
+DBMS_OUTPUT.PUT_LINE(D(I).DEPTNO||','||D(I).DNAME||','||D(I).LOC);
+END LOOP;
+END;
+/
+
+Ex on Bulk collecting with Backward Navigation using "For" loop with record type:
+=======================================================================
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF DEPT%ROWTYPE INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+BEGIN
+SELECT * BULK COLLECT INTO D FROM DEPT;
+FOR I IN REVERSE D.FIRST..D.LAST
+LOOP
+DBMS_OUTPUT.PUT_LINE(D(I).DEPTNO||','||D(I).DNAME||','||D(I).LOC);
+END LOOP;
+END;
+/
+
+Ex on Bulk collecting with Forward Navigation using "While loop" with record type:
+=======================================================================
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF DEPT%ROWTYPE INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+X NUMBER(10);
+BEGIN
+SELECT * BULK COLLECT INTO D FROM DEPT;
+X := D.FIRST;
+WHILE(X<=D.LAST)
+LOOP
+DBMS_OUTPUT.PUT_LINE(D(X).DEPTNO||','||D(X).DNAME||','||D(X).LOC);
+X:=D.NEXT(X);
+END LOOP;
+END;
+/
+
+Ex on Bulk collecting with Backward Navigation using "While loop" with record type:
+=======================================================================
+DECLARE 
+TYPE DNAME_ARRAY IS TABLE OF DEPT%ROWTYPE INDEX BY BINARY_INTEGER;
+D DNAME_ARRAY;
+X NUMBER(10);
+BEGIN
+SELECT * BULK COLLECT INTO D FROM DEPT;
+X := D.LAST;
+WHILE(X>=D.FIRST)
+LOOP
+DBMS_OUTPUT.PUT_LINE(D(X).DEPTNO||','||D(X).DNAME||','||D(X).LOC);
+X:=D.PRIOR(X);
+END LOOP;
+END;
+/
+
+VARRAY:
+========
+	- Varray also user defined types which is used to store number of data items in a single unit and declare with size.here no.of elements are limited as per array size.
+
+Ex:
+DECLARE 
+TYPE T1 IS VARRAY(5) OF VARCHAR2(10);
+v_T T1;
+BEGIN
+SELECT ENAME BULK COLLECT INTO v_T FROM EMP WHERE ROWNUM<=5;
+FOR I IN v_T.FIRST..v_T.LAST
+LOOP
+DBMS_OUTPUT.PUT_LINE(v_T(I));
+END LOOP;
+END;
+/
+
+NESTED TABLE:
+==============
+	- Nested table also user defined types which is used to store number of data items in a single unit and not declare with size.here no.of elements are unlimited.
+
+DECLARE 
+TYPE T1 IS TABLE OF VARCHAR2(10);
+v_T T1;
+BEGIN
+SELECT ENAME BULK COLLECT INTO v_T FROM EMP WHERE ROWNUM<=3;
+FOR I IN v_T.FIRST..v_T.LAST
+LOOP
+DBMS_OUTPUT.PUT_LINE(v_T(I));
+END LOOP;
+END;
+/
+
+

@@ -1,0 +1,1845 @@
+#Shut-cut keys on mySQL Workbench
+#--------------------------------
+-- To make the current line comment/to make a line uncommented(Ctrl+/)
+-- Selecting one line(Shift+down arrow)
+
+create database bibhu;
+use bibhu; 
+show databases;
+drop database dname;
+create table stu(ID int,NAME2 varchar(20),BRANCH varchar(20));
+alter table stu add column Rollno int;
+select * from stu;
+alter table stu add Rollno2 int;
+alter table stu add Rollno3 int first;
+alter table stu add Rollno4 int after ID;
+show tables;
+insert into stu(ID,NAME2,BRANCH) values(1907,'abb','mech');
+insert into 
+stu(NAME2,ID,BRANCH) 
+values('bibhu',1903,'cse');
+select * from stu;
+
+create table a22 as(select * from a2); -- all the records of a2 table will be copied into a22 table.
+select * from customer;
+select * from student;
+insert into student(id,name,age,ci) select id,name,age,salary from customer where id>4;
+desc student;
+
+select count(*)  from stu;
+select count(distinct id ) from stu;
+select count(*) from(select distinct branch from stu);
+desc stu;
+alter table stu drop primary key;
+alter table stu add constraint abcc primary key(id,branch);
+insert into stu  values(1908,'abb','mech');
+alter table student add ROLLNO varchar(20);
+alter table stu modify BRANCH int;
+select * from stu;
+describe stu;
+truncate table student;
+alter table stu rename to stu;
+alter table stu rename column Br to BRANCH;
+select * from stu where id Between 1888 and 2000;
+insert into stu(NAME2,BRANCH) values('Goutam','Mech');
+insert into stu values(1903,'civil');
+select id,branch from stu;
+insert into stu(id) values(1905);
+delete from stu where NAME2='goutam';
+select * from stu where name2='bibhu' and  branch="cse";
+select * from stu where not name2='bibhu';
+select * from stu where id=1902 or (name2='bibhu' and branch='civil');
+select * from stu where not id=1902 or not branch='civil';
+select * from stu order by id ,name2 asc;
+select id,name2  from stu where id is not null;
+update stu set name2='goutam' where branch='mining';
+update stu set name2='bibhu',id=1908 where branch='cse';
+update customer set name=(select name from student where id=1) where id=1;
+delete from stu where id=1901;
+select * from stu;
+delete from stu;
+show tables;
+select version();
+
+/*delete table stu;
+delete table stu(1901,'abc','mining');*/
+use bibhu;
+select min(Name2)  as Name2 from stu;
+select count(name2) from stu where branch='cse';
+select avg(id) from stu where branch='cse';
+select sum(id) from stu where branch='cse';
+select * from stu where name2 like "_ni%"; 
+select * from stu where name2 like 'm__%'; 
+select name2 from stu where id like '1%4'; 
+select name2 from stu where name2 like '[!xuz]%'; -- not working.
+select * from stu where branch  not in ('cse');
+create table employee(id int,name3 varchar(20),salary int);
+insert into employee  values(1909,"bibhu",28000,'30/08/2010');
+select * from stu where id in(select name2 from employee);
+select * from employee;
+select * from stu where name2  not between 'abc' and 'bibhu';
+alter table employee add column datee varchar(10);
+insert into employee  values(66,"pqr",36000,'15/07/1998');
+truncate table employee;
+select * from employee where datee between '04/02/1990' and '05/04/1999';
+select id as bibhuu,branch as "stream abc" from stu;
+select concat(':',id,name2),branch as 'addr ab' from stu;
+select concat_ws(':',id,name2),branch as 'addr ab' from stu;
+select concat_ws(':',id,name2) as details,branch as 'addr ab' from stu;
+select concat_ws(',',"sql","is","fun");
+select o.id,o.name2,e.datee from stu as o,employee as e where o.id=1904 and o.name2=e.name3;
+select stu.id,stu.name2,employee.datee from stu,employee where stu.id=1904 and stu.name2=employee.name3;
+delete from employee where salary=28000;  
+create table abc(id float(3,2),name2 varchar(10));
+
+/* inner join:-
+============= */
+create table tite(str varchar(10),fname varchar(10),sub varchar(10),sal int);
+create table gift(str varchar(10),fname varchar(10),id int,address varchar(10));
+insert into tite values('diploma','amitav','physics',18500);
+insert into gift values('mba','Subhankar',1905,'mumbai');
+select * from tite;
+select * from gift;
+select tite.str,gift.fname,gift.address from tite inner join gift on tite.str=gift.str;
+
+/* not null :-
+============= */
+create table mno(id int not null,name2 varchar(10) not null,age int);
+desc mno;
+select * from mno;
+insert into mno values(100,'Bibhudatta',10);
+alter table mno modify age int not null;
+insert into mno(id,name2) values(109,'goutam');
+update mno set age=20 where id=109;
+
+/* Unique constraints
+====================== */
+create table stu_uniq(sid int,sname varchar(20),sage int,unique(sid,sname));#table level
+insert into stu_uniq values(10,'Bibhu2',28);
+insert into stu_uniq values(10,'Bibhu2',38);#error
+insert into stu_uniq values(10,'Kamal',38);
+insert into stu_uniq values(20,'Bibhu2',28);#(individual accept dupulicate values in case of composite unique)
+insert into stu_uniq values(30,'Kamal',28);
+insert into stu_uniq values(null,null,null);
+select * from stu_uniq;
+
+create table xyz(
+id int not null,
+FName varchar(20) not null,
+LName varchar(20),
+age int,
+unique(id));
+drop table xyz;
+desc xyz;
+select * from xyz;
+insert into xyz values(10,'Bibhu','Behera',19);
+insert into xyz values(10,'Bibhu','Behera',19); -- generates an error because id value is dupulicate.
+insert into xyz values(11,'Goutam','Malik',20); -- works fine bcoz id value is not dupulicate.
+ 
+create table pqr(
+id int not null,
+FName varchar(20) not null,
+LName varchar(20),
+age int,
+constraint UC_pqr unique(id,fname));
+
+insert into pqr values(10,'Bibhu','Behera',19);
+insert into pqr values(11,'Bibhu','malik',10);
+drop table pqr;
+insert into pqr values(10,'Bibhu','malik',29);
+insert into pqr values(14,'Bibhu','malik',21);
+alter table pqr add unique(age);
+insert into pqr values(17,'Abhishek' ,'malik',19);
+
+alter table pqr add constraint uc_abc unique(lname,age);
+insert into pqr values(16,'goutam','jilu',21);
+
+select * from tite;
+alter table tite add age int after name;
+
+alter table tite drop column age;
+alter table tite add age int first;
+alter table tite add rollno int after name,add abc int first;
+alter table tite drop column abc,drop column age;
+
+desc pqr;
+select * from pqr;
+insert into pqr(id,fname,lname) values(100,'rahul','nayak');
+alter table pqr add unique(lname);
+delete from pqr where lname='malik';
+
+alter table pqr drop index Uc_pqr;
+alter table pqr drop index Uc_abc;
+ 
+ /* Primary Key
+ =============== */
+create table prime(id int not null,fname varchar(20) not null,lname varchar(20),age int,PRIMARY KEY(id));
+desc prime;
+drop table prime;
+alter table prime drop primary key;
+alter table prime add primary key(id);
+create table prime2(id int not null,fname varchar(20) not null,lname varchar(20),age int,constraint const_name PRIMARY KEY(id,lname));
+desc prime;
+drop table prime3;
+create table prime3(id int not null,fname varchar(20) not null,lname varchar(20),age int,constraint const_name PRIMARY KEY(id,fname,lname));
+ alter table prime2 add primary key(age);
+insert into prime3 values(12,'bibhu','behera',19);
+insert into prime3(id,fname,age) values(10,'jilu',28);
+alter table prime3 drop primary key;
+alter table prime3 drop const_name ;
+alter table prime3 add constraint abcc primary key(id,fname);
+
+
+insert into prime2 values(10,'bibhu','behera',19);
+insert into prime2 values(11,'gautam','behera',20);
+select * from prime3;
+desc prime2;
+insert into prime(fname,lname,age) values('rahul','nayak',22);
+alter table prime drop primary key;
+
+create table jilu(id int,name2 varchar(10),unique(id));
+drop table jilu;
+describe jilu;
+alter table jilu add  unique(name2);
+insert into jilu values(10,'abc');
+select * from jilu;
+
+/* Foreign Key
+=============== */
+SELECT * FROM bibhu.mobiles;
+use bibhu;
+drop table country;
+create table country(id int not null,city varchar(45),primary key(id));
+insert into country(id) values(1901),(1904),(2903),(1902);
+select * from  country;
+truncate table country;
+
+create table tt(id int primary key,nm varchar(20));
+drop table tt;
+
+-- start
+-- ======
+
+create table persons(pid int not null primary key,lname varchar(45),fname varchar(45),age int); 
+create table orders(oid int not null primary key,ono int not null,pid int,foreign key(pid) references persons(pid));
+describe orders;
+insert into persons values(11,'behera','nirmal',6);
+insert into orders values(1,1901,3),(2,2002,3),(3,2020,2),(4,1876,1);
+select * from orders;
+desc orders;
+
+create table TITE(id int not null,name varchar(10),marks decimal(10,2),primary key(marks));
+create table GIFT(id int not null,name2 varchar(20),score decimal(10,2),constraint gift_stu foreign key(score) references tite(marks));
+drop table gift;
+desc gift;
+drop table gift;
+alter table gift add constraint gift_stu foreign key(score) references tite(marks);
+desc gift;
+truncate table tite;
+insert into tite values(100,'bibhu',88.6),(102,'mayukh',89.9),(101,'antara',99.6),(108,'goutam',78.2);
+alter table gift drop foreign key gift_stu;
+select * from tite;
+insert into gift values(200,'ashirbad',83.6),(203,'ayush',79.9),(209,'antara',99.6),(206,'raj',67.3);
+
+ -- CHECK constraint
+ -- ================
+ create table checkk(id int not null,name varchar(20),age int check(age>=18));
+ desc checkk;
+  insert into checkk values(1901,'goutam',23);
+ insert into checkk values(1903,'bibhu',12);
+ 
+create table checkk2(id int not null,name varchar(20),age int);
+insert into checkk values(1903,'bibhu',12);
+alter table checkk2 add check (age>=18);
+insert into checkk2 values(1901,'goutam',23);
+insert into checkk2 values(1903,'bibhu',12);
+     
+create table check3(id int not null,name varchar(20),age int,city varchar(10),constraint chk check(age>=18 and city='hyd'));
+insert into check3 values(10,'bibhu',19,'hyd');
+insert into check3 values(10,'bibhu',19,'bangalore');
+insert into check3 values(10,'bibhu',19,'pune');
+alter table check3 drop check chk;
+insert into check3 values(10,'bibhu',19,'bangalore'); -- now it is normal afterdrop.
+
+create table vehicle(
+vmodelno varchar(10),
+vname varchar(10),
+sellPrice int check (sellPrice>0),
+costPrice int check(costPrice>0),
+constraint abc check(sellPrice>costPrice));
+insert into vehicle values('R001','tvs',81000,77000);
+insert into vehicle values('R002','activa',76000,79000);
+insert into vehicle values('R005','jupiter',81000,-77000);
+alter table vehicle drop check abc;
+insert into vehicle values('R001','tvs',0,77000);
+insert into vehicle values('R002','activa',76000,79000);
+
+-- DEFAULT Constraint
+-- ==================
+
+create table deff(id int not null,name varchar(255),age int default 19,city varchar(20) default 'hyd');
+desc deff;
+select * from deff;
+insert into deff(id,name) values(1901,'bibhu');
+insert into deff values(1901,'bibhu',21,'bangalore');
+drop table deff;
+alter table deff alter city drop default;
+alter table deff alter age drop default;
+insert into deff(id,name,age) values(1906,'bib',26);
+ 
+ create table def(id int not null,name varchar(255),age int,city varchar(20));
+ alter table def alter city  set default 'hyd'; 
+ alter table def alter age  set default '19'; 
+ desc def;
+ 
+ -- INDEX
+ -- =====
+ create table indx(empNm varchar(10),age int,address varchar(10),sal int);
+ insert into indx values('manish',34,'ganjam',21000),
+ ('arvind',32,'anugul',17000),
+ ('mahesh',23,'bhadrak',29500),
+ ('raj',24,'puri',22000),
+ ('abhaya',36,'ganjam',25000),
+ ('animesh',54,'khordha',23400),
+ ('sanjay',24,'cuttack',32100),
+ ('goutam',17,'kalahandi',17900),
+ ('rahul',44,'dhenkanal',27000),
+ ('abinash',25,'balasore',33700);
+ select address from indx where age=25;
+ create index i_name on indx(sal,age);
+ create unique index i_nm on indx(address);
+ drop table indx;
+ truncate table indx;
+ select * from indx;
+ alter table indx drop index i_nm;
+ drop index i_nm on indx;
+ show index from indx;
+ 
+ -- AUTO INCREMENT 
+ -- ==============
+ create table ainc(id int auto_increment,name varchar(10),age int,primary key(id));
+ desc ainc;
+ drop table ainc;
+ insert into ainc(name,age) values('Bibhu',19); 
+ select * from ainc;
+ insert into ainc(name) values('Bibhu'); 
+ alter table ainc auto_increment=19;
+ insert into ainc(name,age) values('jilu',29);
+insert into ainc values(23,'goutam',29);
+insert into ainc(name,age) values('abhi',28);
+create table ainc2(id int auto_increment,name varchar(10),age int);
+create table ainc2(id int auto_increment,name varchar(10),age int auto_increment,
+constraint con unique(id,name));
+
+-- JOINS
+-- =====
+create table student(id int,Name varchar(20),age int,ci int not null);
+create table city(cid int primary key,cit varchar(20)); 
+insert into student values(1,'Ram Kumar',19,1),
+(2,'Salman khan',18,2),(3,'Meera khan',19,1),(4,'Sarita Kumari',21,3);
+insert into city values(1,'Agra'),(2,'Bhopal'),(3,'Delhi'),(4,'Noida');
+select * from student inner join city on student.ci=city.cid;
+select * from student natural join city;
+select * from student natural join city;
+select * from student inner join city where student.ci=city.cid;
+select s.id,s.name,s.age,c.cit from student s inner join city c on s.ci=c.cid;
+select s.id,s.name,s.age,c.cit from student s inner join city c on s.ci=c.cid where c.cit="agra";
+create table course(crid int,Course varchar(20));
+insert into course values(1,'Btech'),(2,'BCA'),(3,'BBA');
+select * from student inner join city on student.ci=city.cid inner join course on student.ci=course.crid;
+select student.id,student.name,student.age,city.cit,course.course from student inner join city on student.ci=city.cid inner join course on student.ci=course.crid;
+select * from city;
+select * from course;
+select s.id,s.name,s.age,c.cit from student s inner join city c on s.ci=c.cid ;
+select s.id,s.name,s.age,c.cit from student s,city c where s.ci=c.cid;
+
+create table Dep(did int primary key,dname varchar(20));
+insert into dep values(1,'cse'),(3,'mech'),(2,'mining'),(5,'cse');
+
+select * from student s,city c,dep d where s.ci=c.cid=d.did;
+select * from ((student s inner join city c on s.ci=c.cid)inner join dep d on s.ci=d.did);
+
+-- LEFT JOIN
+-- =========
+create table customer(id int not null,name varchar(20),age int,salary int);
+create table orders(oid int primary key,dt date,customer_id int,amount int);
+insert into customer values(1,'Aryan',51,56000),(2,'Arohi',21,25000),
+(3,'Vineet',24,31000),(4,'Ajeet',23,32000),(5,'Ravi',23,42000);
+insert into orders value(001,'2012-01-20',2,3000),(002,'2012-02-12',2,2000),
+(003,'2012-03-22',3,4000),(004,'2012-04-01',4,5000);
+select c.id,c.name,o.amount,o.dt from customer c left join orders o on c.id=o.customer_id;
+
+create table Emp(Empid int not null,Name varchar(20),City varchar(10));
+create table Dep(did int not null,DepName varchar(20),Empid int);
+drop table dep;
+insert into emp values(1,'Rahul','Delhi'),(2,'Krish','Kol'),
+(3,'Jay','Mum'),(4,'Sonam','Hyd'),(5,'Mona','Patna');
+insert into dep values(101,'IT',3),(102,'HR',1),
+(103,'Admin',2),(104,'IT',1);
+select e.name,d.depname from emp e left join dep d on e.empid=d.empid;
+
+-- RIGHT JOIN
+-- ==========
+create table customer2(id int not null,name varchar(20),age int,salary int);
+create table orders2(date2 date,oid int primary key,cust_id int,amount int);
+insert into customer2 values(1,'Aryan',51,56000),(2,'Arohi',21,25000),
+(3,'Vineet',24,31000),(4,'Ajeet',23,32000),(5,'Ravi',23,42000);
+insert into orders2 value('2012-01-20',001,2,3000),('2012-02-12',002,2,2000),
+('2012-03-22',003,3,4000),('2012-04-01',004,4,5000);
+select c.id,c.name,o.amount,o.date2 from customer2 c right join orders2 o on c.id=o.cust_id; 
+
+-- CROSS JOIN
+-- ==========
+create table student3(id int not null,name varchar(20),age int);
+create table city3(cid int not null,city varchar(20));
+insert into student3 values(1,'Ram Kumar',19),(2,'Salman Khan',18),
+(3,'Sarita Kumari',19),(4,'Meera Kumari',21);
+insert into city3 values(1,'Agra'),(2,'Bhopal');
+insert into city3 value(9,'Agra'),(8,'Bhopal');
+select * from student3 cross join city3;
+select * from student3,city3;
+select student3.name,student3.age,city3.city from student3 cross join city3;
+select student3.name,student3.age,city3.city from student3 cross join city3 on student3.id=city3.cid;
+select * from student3 cross join city3 on student3.id=city3.cid;
+select student3.name,student3.age,city3.city from student3 cross join city3 where student3.id=city3.cid;
+select * from a2,blb; -- Cross Join
+
+select * from city;
+select * from city c, city c2;
+-- Self Join
+-- =========
+create table Student(student_id int,name varchar(20),course_id int,duration int);
+insert into student values(1,'Adam',1,3),(2,'Peter',2,4),(1,'Adam',2,4),(3,'Brian',3,2),(2,'Shane',3,5);
+SELECT  s1.student_id, s1.name  
+FROM student AS s1, student s2  
+WHERE s1.student_id=s2.student_id  
+AND s1.course_id<>s2.course_id; 
+ 
+SELECT  s1.student_id, s1.name  
+FROM student s1  
+INNER JOIN student s2  
+ON s1.student_id=s2.student_id  
+AND s1.course_id<>s2.course_id  
+GROUP BY student_id;
+  
+-- ORACLE ANTI JOIN
+-- ===============
+select * from city;
+select * from course;
+select c.cid,c.cit from city c where not exists(select 1 from course where course.crid=c.cid) order by c.cid;
+
+-- ORACLE SEMI JOIN
+-- ===============
+select c.cid,c.cit from city c where exists(select 1 from course where course.crid=c.cid) order by c.cid;
+
+-- UNION
+-- =====
+create table a(id int,nm varchar(10));
+create table a2(id2 int,nm2 varchar(10));
+insert into a values(1,'jilu'),(1,'Bibhu'),(2,'goutam'),(4,'animesh');
+insert into a2 values(3,'khan'),(5,'Sankur'),(2,'goutam'),(9,'kajal');
+insert into a2 values(2,'abhi');
+SELECT * from a union select * from a2;
+select id as idd,nm as name from a union select id2 as bibhu,nm2 as jilu from a2;
+select id as idd,nm as name from a union select id2,nm2 from a2;
+select id from a union select id2 from a2;
+SELECT * from a union all select * from a2 order by id;
+SELECT * from a union all select * from a2 order by id2;
+SELECT * from a union all select * from a2 order by nm;
+SELECT id,nm from a union  select id2,nm2 from a2  where id=1 ;
+select a.id,a.nm,a2.id2,a2.nm2 from a inner join a2 on a.id=a2.id2;
+
+-- GROUP BY
+-- ========
+create table personal(id int,name varchar(20),
+percentage int,age int,gender char,city int,course int);
+insert into personal values(1,'Ram Kumar',45,19,'M',1,1),(2,'Sarita Kumari',55,22,'F',2,3),
+(3,'Salman Khan',62,20,'M',1,1),(4,'Juhi Chawla',47,18,'F',3,1),(5,'Anil Kapor',74,22,'M',1,3),
+(6,'John Abraham',64,21,'M',2,2),(7,'Sahid Kapoor',52,20,'M',1,3);
+select * from personal;
+select id from personal group by id;
+
+create table gbcity(cid int,cityname varchar(20));
+insert into gbcity values(1,'Agra'),(2,'Delhi'),(3,'Bhopal'),(4,'Jaipur'),(5,'Noida');
+
+select age,count(age) from personal group by age;
+select city,count(city) from personal group by city;
+select city,count(city) as Total from personal group by city Order by city;
+select c.cityname,count(p.city) as Total from personal p inner join gbcity c on p.city=c.cid group by city;
+select c.cityname,count(p.city) as Total from personal p inner join gbcity c on p.city=c.cid where p.age>=20 group by city order by Total;
+select c.cityname,count(p.city) as Total from personal p inner join gbcity c on p.city=c.cid group by city;
+
+select c.cityname,count(p.city) as Total from personal p inner join gbcity c on p.city=c.cid group by city having count(p.city)>1;
+
+create table gbcount(id int,name varchar(20),city varchar(10));
+drop table gbemp;
+insert into gbcount values(1,'Ajeet','Mau'),(2,'Deepika','Lucknow'),(3,'Vimal','Faizabad'),(4,'Rahul','Lucknow');
+
+select city,count(*) from gbcount group by city;
+select city,count(*)  as Total from gbcount group by city order by Total; 
+
+create table gbemp(emp_id int,emp_nm varchar(20),Working_Hours int);
+insert into gbemp values(1,'Ajeet',12),(2,'Ayan',10),(3,'Milan',9),(4,'Ruchi',6),
+(1,'Ajeet',18),(2,'Ayan',10),(4,'Ruchi',14),(3,'Milan',9),(1,'Ajeet',12),(3,'Milan',9);
+select emp_nm,sum(working_hours) as "Total Working Hours" from gbemp group by emp_nm;
+
+select emp_nm,max(working_hours) as "Maximum Working Hours" from gbemp group by emp_nm;
+
+select emp_nm,min(working_hours) as "Minimum Working Hours" from gbemp group by emp_nm;
+
+select emp_nm,avg(working_hours) as "Average Working Hours" from gbemp group by emp_nm;
+
+select emp_nm,sum(working_hours) as "Total Working Hours" from gbemp group by emp_nm having sum(working_hours)>21;
+
+select emp_nm,avg(working_hours) as "Average Working Hours" from gbemp group by emp_nm having avg(working_hours) <=10;
+
+-- EXISTS & NOT EXISTS
+-- ===================
+select * from personal; 
+insert into personal values(8,'Bibhu',89,19,'M',5,6);
+create table courses(Course_id int,course_nm varchar(10)); 
+insert into courses values(1,'Btech'),(2,'BCA'),(3,'MBA');    
+select * from courses;    
+select name from personal where course=(select course_id from courses where course_nm="MBA");    
+select name from personal where course=(select * from courses where course_nm="MBA"); 
+select name from personal where course in(select course_id from courses where course_nm in("MBA","Btech"));
+select name from personal where exists(select course_id from courses where course_nm in("MBA","Btech")); 
+select name from personal where not exists(select course_id from courses where course_nm in("MBA","Btech")); 
+select name from personal where not exists(select course_id from courses where course_nm in("MTECH")); 
+
+select name from personal where exists(select course_id from courses where personal.course=courses.course_id);
+
+select exists(select * from courses where course_id=3);
+select exists(select * from courses where course_id=3) as FinalRes;
+select exists(select * from courses where course_id=6) as FinalRes;
+
+CREATE TABLE customer3(  
+  cust_id int NOT NULL,  
+  name varchar(35),  
+  occupation varchar(25),  
+  age int  
+); 
+CREATE TABLE orders3 (  
+    order_id int NOT NULL,   
+    cust_id int,   
+    prod_name varchar(45),  
+    order_date date  
+);  
+INSERT INTO customer3(cust_id, name, occupation, age)   
+VALUES (101, 'Peter', 'Engineer', 32),  
+(102, 'Joseph', 'Developer', 30),  
+(103, 'John', 'Leader', 28),  
+(104, 'Stephen', 'Scientist', 45),  
+(105, 'Suzi', 'Carpenter', 26),  
+(106, 'Bob', 'Actor', 25),  
+(107, NULL, NULL, NULL); 
+
+INSERT INTO orders3 (order_id, cust_id, prod_name, order_date)   
+VALUES (1, '101', 'Laptop', '2020-01-10'),  
+(2, '103', 'Desktop', '2020-02-12'),  
+(3, '106', 'Iphone', '2020-02-15'),  
+(4, '104', 'Mobile', '2020-03-05'),  
+(5, '102', 'TV', '2020-03-20');  
+
+SELECT * FROM customer3;  
+SELECT * FROM orders3;  
+
+SELECT name, occupation FROM customer3  
+WHERE EXISTS (SELECT * FROM Orders3  
+WHERE customer3.cust_id = Orders3.cust_id);  
+
+SELECT name, occupation FROM customer3  
+WHERE NOT EXISTS (SELECT * FROM Orders3   
+WHERE customer3.cust_id = Orders3.cust_id); 
+
+DELETE FROM Orders3 WHERE EXISTS (  
+SELECT * FROM customer3   
+WHERE order_id=3);   
+
+SELECT EXISTS(SELECT * from customer3 WHERE cust_id=104) AS Result;
+
+-- ANY
+-- ===
+create table std2(st_id int,st_nm varchar(10),marks double);
+insert into std2 values(101,'Sumit',78),(102,'Ashu',78),(103,'Shreya',85),(104,'Kuku',85),
+(105,'Tiwari',87),(106,'Ramu',65);
+
+select st_nm from std2 where marks<78 or marks<67 or marks<86;
+select st_nm from std2 where marks < any(78,67,86);
+
+create table std3(Address varchar(20),marks double);
+insert into std3 values('bhadrak',79),('koraput',65),('ganjam',85);
+
+select st_nm from std2 where marks = any(select address from std3); -- address does not match so it returns all the records.
+select st_nm from std2 where marks = any(select marks from std3);
+select st_nm from std2 where marks <> any(select marks from std3);
+select st_nm from std2 where marks = any(select marks from std3 where Address='koraput');
+select st_nm from std2 where marks = any(select marks from std3 where Address='sundargarh');
+select st_nm from std2 where marks < any(select marks from std3 where Address='65');
+select st_nm from std2 where marks < any(select marks from std3 where Address='bhadrak');
+select st_nm from std2 where marks in(select marks from std3 where Address='bhadrak');
+select st_nm from std2 where marks in(select marks from std3 where Address='koraput');
+select any(select marks from std3);
+select exists(select marks from std3);
+
+-- ALL
+-- ===
+select st_nm from std2 where marks = all(select marks from std3 where Address='sundargarh');
+select st_nm from std2 where marks = all(select marks from std3 where Address='koraput');
+select all st_nm from std2 where true;
+select st_nm from std2 where marks = some(select marks from std3 where Address='koraput');
+
+create table bibhuu select * from orders3;
+select * from bibhuu;
+
+-- INSERT INTO SELECT 
+-- ==================
+create table iis(id int unique,name varchar(20));
+create table iis2(id int,name varchar(20),age int);
+insert into iis2 values(111,'Bibhu',19),(222,'jilu',18),(333,'Goutam',23),(444,'Abhaya',34);
+insert into iis2 values(777,'ABC',19);
+insert into iis values(111,'Bibhu'),(222,'jilu'),(333,'Goutam'),(444,'Abhaya');
+insert into iis values(555,'Abhishek'),(666,'Manish');
+truncate table iis2;
+create table iis3(no int,name2 varchar(20));
+insert into iis3 table iis; 
+select * from iis2;
+
+insert into iis select id,name from iis2;
+insert into iis2 select id,name from iis; -- Not Possible.
+select * from iis;
+drop table iis2;
+
+-- IF() METHOD
+-- ===========
+select if(2>8,'Correct','Wrong') ;
+select if(2>8,'Correct','Wrong') as Result;
+select if(2=2,'True','False') ;
+select if(2=2,1,2) ;
+select if(2=9,1,'false') ;
+select if(2=2,'False','True') as result ;
+select if(2<>2,'False','True') as result ;
+
+select if(strcmp('jilu','jilu')=0,'Correct','Wrong') as result;
+select if(strcmp('jilu','Bibhu')=0,'Correct','Wrong') as result;
+select * from Student;
+select name,if(age>=18,'Eligible for Vote','Not Eligible for Vote') as Eligibility from student;
+
+-- IFNULL()
+-- ========
+select ifnull('ab','cd');
+select ifnull(null,0) as result;
+select ifnull(null,null) result;
+-- NULLIF()
+-- ========
+select NULLIF('ab','cd') result;
+select NULLIF(3,3) result;
+select NULLIF(null,NULL) result;
+
+-- CASE 
+-- ====
+select CASE 1
+   WHEN 1 THEN 'One'
+   WHEN 2 THEN 'Two'
+   WHEN 3 THEN 'Three'
+   ELSE 'More'
+END as Result;   
+
+select CASE 4
+   WHEN 1 THEN 'One'
+   WHEN 2 THEN 'Two'
+   WHEN 3 THEN 'Three'
+   ELSE 'More'
+   END;
+   
+select CASE 4
+   WHEN 1 THEN 'One'
+   WHEN 2 THEN 'Two'
+   WHEN 3 THEN 'Three'
+   ELSE 'More'
+END as Result;
+
+SELECT 
+    CASE 4
+        WHEN 1 THEN 'One'
+        WHEN 2 THEN 'Two'
+        WHEN 3 THEN 'Three'
+    END Result;
+    
+    SELECT CASE BINARY 'B' 
+    WHEN 'a' THEN 1
+    WHEN 'b' THEN 2 
+	WHEN 'B' THEN 4 
+    END Res;  
+    
+    SELECT CASE  'B' 
+    WHEN 'a' THEN 1
+    WHEN 'b' THEN 'ABC' 
+    END Res;  
+    
+	SELECT 
+    CASE BINARY 'B'
+        WHEN 'a' THEN 1
+        WHEN 'b' THEN 'ABC'
+		WHEN 'B' THEN 'def'
+    END Res; 
+    
+    create table tnm(id int,fname varchar(20),lnm varchar(22),age int);
+    insert into tnm values(1,'bibhu','behera',19);
+	insert into tnm(id,fname,age) values(2,'goutam',19);
+	insert into tnm(id,fname,lnm) values(1,'bibhu','malik');
+	select * from tnm;
+    
+    select id,fname,lnm,age from tnm order by(
+    CASE 
+    WHEN age is null THEN lnm
+    ELSE age
+    END );
+ 
+ -- OPERATORS.....
+ -- =========
+ 
+ select 2+7 as res;
+ select 10 & 4;
+select 10 | 4;
+
+
+-- DataTypes
+-- =========
+
+create table a(id varchar(10), nm varchar(20));
+insert into a values('Bibhu','ab');
+select length(id) from a;
+drop table a;
+truncate table a;
+insert into a values('jil6u44');
+use bibhu;
+create table a( id text(10));
+insert into a values('23nmd');
+create table a( id tinytext(34));
+
+-- ENUM
+-- ====
+CREATE TABLE shirts (  
+    id INT PRIMARY KEY AUTO_INCREMENT,   
+    name VARCHAR(35),   
+    size ENUM('small', 'medium', 'large', 'x-large')  
+);  
+
+INSERT INTO shirts(id, name, size)   
+VALUES (1,'t-shirt', 'medium'),   
+(2, 'casual-shirt', 3),   
+(3, 'formal-shirt', 4),   
+(4, 'polo-shirt', 'small');  
+select * from shirts;
+insert into shirts values(5,'us-Polo',7);
+
+select * from shirts order by size;
+select * from shirts order by size desc;
+
+create table t(id int, nm enum('a','d','c',''));
+insert into t values(1,'cc');
+insert into t values(1,4),(2,3),(3,1),(4,2);
+select * from t;
+select * from t order by nm;
+create table tt(id int, nm enum(1,3,4,2));
+
+-- SET
+-- ===
+ CREATE TABLE myset_test (  
+  Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,   
+  Myset_col SET('Java', 'Python', 'Android', 'PHP')  
+);  
+INSERT INTO myset_test(Myset_col) VALUES ('Java,PHP'), ('PHP,Java'),   
+('Java,PHP,Java'), ('Java,PHP,PHP'), ('PHP,Java,PHP'); 
+select * from myset_test;
+
+update myset_test set  Myset_col='java,Python' where id=4;
+update  myset_test set  Myset_col=7 where id=4;
+update  myset_test set  Myset_col=29 where id=1;
+update myset_test set  Myset_col='.NET' where id=2;-- will show error bcoz we we can modify or add those data that are available insode set .
+update myset_test set  Myset_col=concat(myset_col,",Android") where id=2;
+
+update myset_test set  Myset_col=replace(myset_col,"Python","") where id=5;
+update myset_test set  Myset_col=replace(myset_col,"PHP","") where id=5;-- will show error bcoz the php data already exists.
+update myset_test set  Myset_col=myset_col &~2 where id=3;
+update myset_test set  Myset_col=myset_col &~15 where id=1;
+update myset_test set  Myset_col=myset_col &~1 where id=3;
+select  id,Myset_col,Myset_col+0 as Total from myset_test;
+
+create table j(id int,ab set('aa','bb','cc','dd','ee'));
+select * from j;
+insert into j values(1,16);
+insert into j values(1,25);
+drop table j;
+create table j(id float);
+insert into j values(1.34);
+insert into j value(2);
+insert into j values(true);
+
+create table k(id bool);
+insert into k values(true);
+insert into k values(2);
+select * from k;
+
+-- BLOB
+-- ====
+
+create table blb(id int,name varchar(10),Filee Blob);
+insert into  blb values(1,'bibhu','I am a CSE stu,I am 19 years old'),
+(2,'Jilu','I am a Mech stu,I am 29 years old'),
+(3,'Goutam','I am a EEE stu,I am 34 years old');
+select * from blb;
+drop table blb;
+select convert(Filee using utf8) from blb;
+alter table blb add Context text;
+update blb set Context=convert(filee using utf8);
+alter table blb drop column filee;
+select * from blb;
+
+
+-- STORED PROCEDURE
+-- ================
+call proc10;
+select * from customer;
+
+-- Procedure Without Parameter.
+DELIMITER &&
+create procedure customer()
+BEGIN
+-- select * from customer where id>2;
+select count(id) as Total_Record  from customer;
+select * from customer where id>2;
+END &&
+
+drop procedure customer;
+call customer();
+
+-- Procedure With Parameter.
+DELIMITER &&
+create procedure customer2(in varr int)
+BEGIN
+select count(id) as Total_Record  from customer;
+select * from customer LIMIT varr;
+END &&
+
+call customer2(2);
+call customer2(4);
+call customer2(8);
+drop procedure customer2;
+
+DELIMITER &&
+create procedure hello()
+BEGIN
+select "Hello World";
+END &&
+call hello();
+
+DELIMITER &&
+create procedure customer3(out H_Sal double)
+BEGIN
+select max(salary) into H_Sal  from customer;
+END &&
+call customer3(@mar);
+SELECT @mar AS HighestSalary;
+
+DELIMITER &&
+create procedure customer4(inout sal double)
+BEGIN
+select salary into sal from customer where id=sal;
+END &&
+
+set @s=4;
+call customer4(@s);
+select @s;
+
+DELIMITER **
+create procedure abc(in num int,out incr int)
+BEGIN
+select num = num+incr;
+END **
+
+drop procedure abc;
+
+set @n=10;
+call abc(@n,8);
+select @n;
+call abc(10,8);
+
+show procedure status where db='bibhu';
+
+-- Stored Procedure IF-ELSE
+-- ========================
+
+DELIMITER //
+create procedure ifcond1(age int)
+BEGIN
+if age>18 then 
+Select 'Eligible for Vote';
+else 
+Select 'Not Eligible for Vote';
+end if;
+end //
+
+call ifcond1(19);
+
+-- VARIABLES
+-- =========
+-- User-Defined Variable
+set @a=10;
+select @a;
+set @b:=10.78;
+select @b aa;
+select @nm:='jilu';
+select @nm;
+select @aa;
+
+select * from customer;
+
+select @maxage:=max(age) from customer;
+select id,name from customer where age=@maxage;
+
+-- Local Variable
+declare val oct(8,2) default 0.0; 
+declare a,b,c,d int default 0;
+
+DELIMITER //
+create procedure var()
+ BEGIN 
+ DECLARE A int DEFAULT 100;
+ DECLARE B INT;
+ DECLARE C INT;
+ DECLARE D INT;
+ SET A=10;
+ SET B=20;
+ SET C=30;
+ SET D=B+C-A;
+ SELECT A,B,C,D;
+ END //
+ 
+ call var2();
+ 
+DELIMITER $$
+CREATE PROCEDURE age()
+BEGIN
+	DECLARE totalAge INT DEFAULT 10;
+    SELECT COUNT(*) INTO totalAge FROM customer;
+    SELECT totalAge;
+END$$
+
+call age();
+ 
+ 
+DELIMITER //
+create procedure var2()
+ BEGIN 
+ DECLARE A int DEFAULT 100;
+ DECLARE B INT;
+ DECLARE C INT;
+ DECLARE D INT;
+ SET B=10;
+ SET C=30;
+ SET D=B+C-A;
+ SELECT A,B,C,D;
+ END //
+ 
+ drop procedure var2;
+ 
+ -- System Variable.
+ show variables;
+ select @@admin_ssl_crl;
+  select @@admin_port;
+SHOW VARIABLES LIKE '%wait_timeout%';    
+SELECT @@key_buffer_size; 
+ 
+ DELIMITER //
+ create  procedure jtemplate(IN a int,IN b varchar(20),IN c int)
+ BEGIN
+ insert into mobiles values(a,b,c);
+ END //
+ select * from mobiles;
+ desc mobiles;
+ truncate mobiles;
+ 
+ -- DATE & TIME
+ -- ===========
+ 
+ create table date_time(oid int,odate date);
+ insert into date_time values(1,'2022-01-02'),(2,'2021-12-02'),(3,'199-01-23');
+ select * from date_time;
+insert into date_time values(1,'2022/01/02');
+select oid from date_time where odate='2022-01-02';
+
+select date('2001-09-20'); -- used to get the date from given date & time.
+select date('2001-09-20') as Datee;
+select date('2001-09-20') Datee;
+
+select adddate('2001-09-01',10) as Datee;-- used to get the date in whch some addition od day interval.
+select adddate('2001-09-01',interval 1 minute);
+select adddate('2001-09-01',interval 12 microsecond);
+select adddate('2001-09-01',interval 17 year);
+select adddate('2001-09-01',interval -1 minute);
+select adddate('2001-09-01',interval 4 quarter);
+select adddate('2001-09-01',interval 52 week);
+
+select curdate();
+select current_date();
+select current_date()+2 as Datee;
+
+Select date_format('2018-09-25', '%M %d %Y');  
+Select datediff('2018-09-10','2018-09-10'); 
+Select datediff('2018-09-10','2019-09-10'); 
+Select day('2018-09-10');  
+Select dayname('2018-09-10'); 
+Select dayofmonth('2018-09-25');  
+Select dayofweek('2018-5-12');  
+Select dayofyear('2018-09-26');  
+Select from_days(756982);  
+Select from_days(9221);  
+Select hour('2018-09-26 11:19:25');  
+select addtime('2018-09-22', '11:02:45.0000023'); 
+select current_time();
+select current_time()+2;
+Select current_timestamp();  -- used to get the current date and time.
+SELECT LAST_DAY('2019-10-05'); -- used to get the last day of the given month.
+SELECT LAST_DAY(now()); 
+SELECT LAST_DAY(curdate()); 
+SELECT LAST_DAY('2004-02-11'); 
+select localtime();
+select makedate(2019,220);-- used to make date through year &  the no of days.
+select maketime(10,33,23);-- used to make time through hour,minute & second.
+Select microsecond('2018-9-28 10:18:25.000002');  -- used to get the microsecond from the given time.
+select minute('2018-9-28 10:20:25.000002');  -- used to get the minute from the given time.
+select month('1995-2-11');  
+Select monthname ('2018-9-28 10:20:25.000002');  
+select now();
+Select period_add(201210,22); 
+Select period_add(201210,2); 
+select period_diff(201808,199508);-- yymm or yyyymm
+select week('2018-10-03'); 
+select weekofyear('2018-10-03'); 
+select sysdate(); 
+select sec_to_time(2000);
+select sec_to_time(20); -- convert second to time. 
+Select second('2018-09-29 01:21:24.000002'); 
+select str_to_date('February 11 1995', '%M %d %Y');  
+select str_to_date('01,50,25','%h,%i,%s');   
+select time('2018-10-01 08:01:23.000005');  
+select time('08:01:23');  
+ select time_to_Sec('12:56:12');  
+select timediff('01:25:23','12:56:12');  
+select timestamp('2018-10-03'); 
+select to_Days('1995-02-11');  
+select to_Days('00002-01-01');  
+
+-- VIEW
+-- ====
+select * from student; 
+select * from city; 
+create view vv1 as select id,name,age from student where age>20;
+select * from vv2;
+alter view vv1 as select id,name from student where age>21;
+create or replace view vv1 as select id,name,age from student where id>19;
+rename table vv1 to vv2;
+drop view vv2;
+
+create view view1 as select s.id,s.name,s.age,c.cit from student s,city c where s.age>19;
+create or replace view view1 as select s.id,s.name,s.age,c.cit from student s,city c where s.ci=c.cid;
+select * from view1;
+
+-- User Management
+-- ===============
+drop user newuserJilu;
+select user from mysql.user;
+select user();
+select current_user();
+
+create user root3 identified by 'pa55word';
+select * from mysql.user;
+rename user root3 to root33;
+grant all privileges on classicmodels.* to root33;
+grant all privileges on *.* to root33;
+show grants;
+show grants for root33;
+grant select,insert,update,delete on *.* to root33;
+flush privileges;
+update user set root33 =password('pa55word') where user=root33 and host='%';
+ALTER USER root33 IDENTIFIED BY 'Jilu7684';  
+-- ==============================================================================
+-- Copy Database
+-- =============
+drop schema mythh;
+create schema mythh;
+use bibhu_copy;
+-- Show tables 
+-- ===========
+show tables;
+show schemas; 
+show full tables;
+show tables in spring;
+show tables from spring;
+show tables in mysql like "time%";
+show tables from bibhu where table_type="view";
+show tables from bibhu where Tables_in_bibhu="tite";
+
+-- Rename
+-- ======
+rename table tite to tite22;
+select * from tite2;
+rename table tite22 to tite,tite to tite2;
+-- Desc Table
+-- ==========
+show columns from tite2;
+show columns from spring.employee;
+explain select * from tite2;
+-- Temporary table 
+-- ===============
+create temporary table temp(aa int,abc varchar(20));
+select * from temp;
+drop temporary  table temp;
+create table temp(aa int,abc varchar(20));
+-- Copy Table
+-- ==========
+create table tite2_copy select * from tite2;
+select * from tite2_copy;
+create table employee_copy select * from spring.employee;
+select * from employee_copy;
+insert into employee_copy select * from tite2;
+repair table tite2;
+alter table tite2 change column  mm marks decimal(10,2);
+select * from tite2;
+--  Show Columns
+ -- ============
+ show columns from student from bibhu; 
+ show columns from bibhu.student;
+desc bibhu.student;
+show columns from student;
+show columns from student like 'a%';
+show full columns from student;
+-- Replace
+-- =======
+select * from student;
+replace into student values(99,'Bibhu',20,11);
+replace into student values(99,'Bibhu Behera',20,15);
+replace into student set id=99,name='Goutam',age=99,ci=9;
+replace into student(id,ci) values(99,10);
+replace into student set id=10 where ci=1;
+
+CREATE TABLE Personn (  
+  ID int AUTO_INCREMENT PRIMARY KEY,  
+  Name varchar(45) DEFAULT NULL,  
+  Email varchar(45) DEFAULT NULL UNIQUE,  
+  City varchar(25) DEFAULT NULL  
+);  
+INSERT INTO Personn(ID, Name, Email, City)   
+VALUES (1,'Mike', 'mike@javatpoint.com', 'California'),   
+(2, 'Alexandar', 'alexandar@javatpoint.com', 'New York'),   
+(3, 'Adam', 'adam@javatpoint.com', 'Los Angeles'),  
+(4, 'Peter', 'Peter@javatpoint.com', 'Alaska');  
+REPLACE INTO Personn (id, city)  
+VALUES(4,'Amsterdam');  
+select * from personn;
+REPLACE INTO Personn  
+SET ID = 1,  
+    Name = 'Mike',  
+    City = 'Birmingham';  
+replace into personn values(5,'Bibhu','bibhuduttbehera@gmail.com','khordha');
+replace into personn values(5,'Bibhu','bibhuduttbehera@gmail.com','Bhadrak');
+REPLACE INTO Personn(Name, City)  
+SELECT Name, City   
+FROM Personn WHERE id = 2;
+-- Insert on dupulicate key update
+-- ===============================
+CREATE TABLE Studentt (  
+  Stud_ID int AUTO_INCREMENT PRIMARY KEY,  
+  Name varchar(45) DEFAULT NULL,  
+  Email varchar(45) DEFAULT NULL,  
+  City varchar(25) DEFAULT NULL  
+);  
+INSERT INTO Studentt(Stud_ID, Name, Email, City)   
+VALUES (1,'Stephen', 'stephen@javatpoint.com', 'Texax'),   
+(2, 'Joseph', 'Joseph@javatpoint.com', 'Alaska'),   
+(3, 'Peter', 'Peter@javatpoint.com', 'california');  
+INSERT INTO Studentt(Stud_ID, Name, Email, City)   
+VALUES (4,'John', 'john@javatpoint.com', 'New York');  
+
+INSERT INTO Studentt(Stud_ID, Name, Email, City)   
+VALUES (4, 'John', 'john@javatpoint.com', 'New York')  
+ON DUPLICATE KEY UPDATE City = 'Kolkata';  
+select * from studentt;
+
+INSERT INTO Studentt(Stud_ID, Name, Email, City)   
+VALUES (3, 'peter', 'peter@javatpoint.com','calfornia')  
+ON DUPLICATE KEY UPDATE Email='abc@.com',city = 'Kolkata'; 
+-- Insert Ignore
+-- =============
+CREATE TABLE Test (  
+    ID int AUTO_INCREMENT PRIMARY KEY,  
+    Name varchar(5) NOT NULL  
+);  
+INSERT INTO Test(Name)  
+VALUES ('Peter'), ('John');  
+INSERT INTO Test(Name) VALUE ('Stephen');  -- Will show error coz of too long name size.
+INSERT IGNORE INTO Test(Name) VALUE ('Stephen'); 
+show warnings;
+select * from Test;
+
+CREATE TABLE Student2 (  
+  Stud_ID int AUTO_INCREMENT PRIMARY KEY,  
+  Name varchar(45) DEFAULT NULL,  
+  Email varchar(45) NOT NULL UNIQUE,  
+  City varchar(25) DEFAULT NULL  
+);  
+INSERT INTO Student2(Stud_ID, Name, Email, City)   
+VALUES (1,'Stephen', 'stephen@javatpoint.com', 'Texax'),   
+(2, 'Joseph', 'Joseph@javatpoint.com', 'Alaska'),   
+(3, 'Peter', 'Peter@javatpoint.com', 'california');  
+
+INSERT INTO Student2(Stud_ID, Name, Email, City)   
+VALUES (4,'Donald', 'donald@javatpoint.com', 'New York'),   
+(5, 'Joseph', 'Joseph@javatpoint.com', 'Chicago');   -- It will produce error.
+ 
+ INSERT IGNORE INTO Student2(Stud_ID, Name, Email, City)   
+VALUES (4,'Donald', 'donald@javatpoint.com', 'New York'),   
+(5, 'Joseph', 'Joseph@javatpoint.com', 'Chicago');  
+
+ select * from student2;
+ -- INDEX
+-- ======
+ create table abcd(col1 int primary key,
+ col2 int not null,col3 varchar(30),INDEX(col2,col3));
+ desc abcd;
+ show indexes from abcd;
+explain select * from student;
+show indexes from abcd in bibhu;
+show keys from abcd in bibhu;
+show indexes from bibhu.abcd;
+-- Boolean Data Type
+-- =================
+select True,false;
+create table booll(aa int,bb boolean);
+desc booll;
+insert into booll values(1,3);
+select * from booll;
+insert into booll values(2,True);    
+insert into booll values(3,false);
+select aa,if(bb,true,false) BoolVal from booll; -- Non-zero value=True, Zero=False
+select aa from booll where bb=true;
+select aa from booll where bb is true;
+ -- USING 
+ -- =====
+create table us1(id int,age int,rollno int);
+create table us2(id int,age2 int,name varchar(10));
+insert into us1 values(11,19,1902),(12,23,1901),(13,24,1900),(15,28,1909);
+insert into us2 values(22,29,'Goutam'),(12,19,'Jilu'),(15,10,'Bibhu');
+select * from us2;
+select id,us1.age,us2.name from us1 inner join us2 where us1.id=us2.id;
+select id,us1.age,us2.name from us1 inner join us2 using(id);
+-- COMPOSITE KEY
+-- =============
+create table product(id int not null,name varchar(45),
+Manufacture varchar(10),primary key(name,Manufacture));
+desc product2;
+alter table product drop primary key;
+create table product2(id int not null,name varchar(45),
+Manufacture varchar(10),constraint com primary key(name,Manufacture));
+alter table product2 drop primary key ;
+drop table product2;
+create table product3(id int not null,name varchar(45),
+Manufacture varchar(10));
+alter table product3 add primary key(name,manufacture);
+desc product3;
+show columns from product3;
+-- FIRST(),LAST()
+-- ==============
+select * from customer;
+select name from customer limit 1;
+select name from customer limit 2;
+select name from customer order by name desc limit 1;
+select name from customer order by name desc limit 2;
+select name from customer order by  id desc limit 1;
+-- GROUP_CONCAT()
+-- ==============
+select * from personal;
+select id,name,age,group_concat(percentage) as Per from personal group by city;
+select id,name,age,group_concat( distinct percentage) as Per from personal group by city;
+select id,name,age,group_concat(percentage separator ':') as Per from personal group by city;
+-- COMMENTS
+-- ========
+#select * from customer;
+-- select * from customer;
+/*select * from customer;*/
+show table status like 'customer';
+-- Change STORAGE ENGINE
+-- ===================== 
+show engines;
+SELECT engine FROM information_schema.tables  
+WHERE table_schema = 'bibhu' AND table_name = 'customer'; 
+show table status like'customer'; 
+show table status like'tite2'; 
+alter table customer engine='MYISAM'; 
+create database jilu;
+
+-- On Delete CASCASE
+-- =================
+CREATE TABLE Employee5 (emp_id int NOT NULL,  name varchar(40) NOT NULL,  
+birthdate date NOT NULL, gender varchar(10) NOT NULL,  
+hire_date date NOT NULL,  PRIMARY KEY (emp_id) );  
+
+INSERT INTO Employee5 (emp_id, name, birthdate, gender, hire_date) VALUES  
+(101, 'Bryan', '1988-08-12', 'M', '2015-08-26'),  
+(102, 'Joseph', '1978-05-12', 'M', '2014-10-21'),  
+(103, 'Mike', '1984-10-13', 'M', '2017-10-28'),  
+(104, 'Daren', '1979-04-11', 'M', '2006-11-01'),  
+(105, 'Marie', '1990-02-11', 'F', '2018-10-12');  
+
+CREATE TABLE Payment (  
+  payment_id int PRIMARY KEY Not Null,  
+  emp_id int(10) NOT NULL,  
+  amount float NOT NULL,  
+  payment_date date NOT NULL,  
+  FOREIGN KEY (emp_id) REFERENCES Employee5 (emp_id) ON DELETE CASCADE  
+);  
+
+INSERT INTO Payment (payment_id, emp_id, amount, payment_date) VALUES   
+(301, 101, 1200, '2015-09-15'),  
+(302, 101, 1200, '2015-09-30'),  
+(303, 101, 1500, '2015-10-15'),  
+(304, 101, 1500, '2015-10-30'),  
+(305, 102, 1800, '2015-09-15'),  
+(306, 102, 1800, '2015-09-30'); 
+DELETE FROM Employee5 WHERE emp_id = 102;  
+select * from Employee5; 
+select * from Payment;
+update employee5 set emp_id=102 where emp_id=101;
+
+CREATE TABLE Employee4 (emp_id int NOT NULL,  name varchar(40) NOT NULL,  
+birthdate date NOT NULL, gender varchar(10) NOT NULL,  
+hire_date date NOT NULL,  PRIMARY KEY (emp_id) );  
+
+CREATE TABLE Payment5 (  
+  payment_id int PRIMARY KEY Not Null,  
+  emp_id int(10) NOT NULL,  
+  amount float NOT NULL,  
+  payment_date date NOT NULL  
+);  
+alter table payment5 add constraint jilu foreign key (emp_id) references Employee4(Emp_id) on delete cascade;
+desc payment5;
+
+-- Transactional Control Statement
+-- ===============================
+select * from payment;
+select * from Employee5;
+
+start Transaction;
+select @amount=max(amount) from payment;
+insert into payment values(307,105,1800,'2016-11-29');
+insert into employee5 values(106,'Bibhu','2016-11-29','M','2022-02-19');
+commit;
+
+start transaction;
+delete from employee5;
+
+select * from employee5;
+
+ROllBACK;
+-- -------------------------
+select * from personal;
+insert into personal values(9,'Goutam',99,20,'F',7,8);
+update personal set id=11 where name='bibhu';
+Rollback;
+update personal set id=6 where percentage=64;
+set autocommit=off;
+delete from personal where id=66;
+-- SAVEPOINT
+-- =========
+savepoint s1;
+insert into personal values(7,'Bibhu',99,22,'M',9,0);
+update personal set id=6 where age=22;
+savepoint s2;
+update personal set id=6 where age=21;
+rollback to s1;
+release savepoint s1;
+rollback to s1;
+
+-- CAST()
+-- ======
+select cast("2020-12-12" As DATE) as datee;
+select cast("20-12-2020" As DATE);
+SELECT CAST(3-6 AS SIGNED) datee;  
+SELECT CAST(3-6 AS unSIGNED) datee;  
+SELECT CAST(3 as unsigned);
+SELECT CONCAT('CAST Function Example ## ',CAST(5 AS char));  
+-- CONVERT()
+-- =========
+SELECT CONVERT("2018-11-30", DATETIME); 
+select ifnull(null,null);
+-- FUNCTION
+-- ========
+DELIMITER &&
+create function fun(a int,b int)
+returns int deterministic
+BEGIN
+declare c int;
+set c=a+b;
+return c;
+end &&
+
+select fun(3,40) as res;
+-- STORED FUNCTION
+-- ===============
+create table customer5(id int not null,name varchar(20),age int,salary int,occupation varchar(20));
+insert into customer5 values(1,'Aryan',51,56000,'Engineer'),(2,'Arohi',21,25000,'Doctor'),
+(3,'Vineet',24,31000,'Teacher'),(4,'Ajeet',23,32000,'Engineer'),(5,'Ravi',23,42000,'Engineer');
+select * from customer5;
+
+Delimiter ##
+create function occ(sal varchar(20))
+returns varchar(20) deterministic 
+Begin
+declare occupationn varchar(20);
+if sal>=50000 then 
+set occupationn="doctor";
+elseif (sal>=30000 and sal<50000) then 
+set occupationn="Engineer";
+elseif (sal>=20000 and sal<30000) then 
+set occupationn="Teacher";
+end if;
+return (occupationn);
+end ##
+
+select id,name,age,salary,occ(salary) as occupation from customer5 order by age;
+
+DELIMITER &&
+create procedure sf()
+begin
+select id,name,age,salary,occ(salary) as occupation from customer5 order by age;
+end &&
+
+call sf();
+
+-- GET TODAYS DATE
+-- ===============
+select curdate() as 'Todays Date';
+select current_date();
+select Current_date;
+select now();
+select date(now()) as Today;
+
+DELIMITER &&
+create function dt()
+returns DATE DETERMINISTIC
+BEGIN
+return curdate();
+END && 
+
+select dt() as Today;
+select dt()+interval 1 day as TOMORROW;
+select dt()-interval 1 day as YESTERDAY;
+-- ROW COUNT
+-- =========
+select(select count(*) from personal) as Table1 ,
+(select count(*) from customer) as Table2;
+
+select table_name,table_rows from information_schema.tables 
+where table_schema='bibhu' order by table_name;
+
+-- Prepared Statement
+-- ==================
+prepare stmt1 from 'select ?+? as SUM';
+set @a=10;
+set @b=20;
+execute stmt1 using @a,@b;
+
+select * from customer;
+prepare stmt2 from 'select name,age,salary from customer where id=?';
+set @idd=5;
+execute stmt2 using @id;
+set @id=1;
+ 
+deallocate prepare stmt1;
+execute stmt1 using @a,@b; -- will show error.
+
+DELIMITER &&
+create procedure pre(table_nm varchar(20))
+BEGIN
+set @A:=Concat('select * from ','',table_nm);
+prepare stmtt from @A;
+execute  stmtt;
+end &&
+
+call pre('customer');
+call pre('product');
+
+-- Hexadecimal Litral
+-- ==================
+select 0xD6 +0 as res;
+select hex('Bibhuu');
+-- BitValue Litereals
+-- ==================
+set @v1=b'110011';
+select @v1;
+set @v2=B'110011'+0,@v3=cast(b'110011' as signed);
+select @v2,@v3;
+
+-- MINUS
+-- =====
+create table table1(id int primary key);
+create table table2(id int primary key);
+insert into table1 values(1),(2),(3),(4);
+insert into table2 values(3),(4),(5),(6);
+select id from table1 left join table2 using(id);
+select id from table1 left join table2 using(id) where table2.id is null;
+-- INTERSECT
+-- =========
+create table table3(id int primary key);
+create table table4(id int primary key);
+insert into table3 values(1),(2),(3),(4);
+insert into table4 values(3),(4),(5),(6);
+select distinct id from table3 inner join table4 using(id);
+select id from table3 where id in(select id from table4);
+select  distinct id from table3 where id in(select id from table4);
+explain analyze select * from customer;
+-- Find The Nth Highest Record
+-- ===========================
+select * from customer;
+select * from customer order by salary desc limit 1; -- find 1st Highest record.
+select * from customer order by salary desc limit 1,1; -- find 2nd Highest record.
+select * from customer order by salary desc limit 2,1; -- find 3rd Highest record.
+select * from customer order by salary desc limit 3,1; -- find 4th Highest record.
+select * from customer order by salary desc limit 4,1; -- find 5th Highest(lowest) record.
+select * from customer order by salary asc limit 1; -- find 1st lowest record.
+-- Find Dupulicate Records in a Table
+-- ==================================
+select * from customer;
+insert into customer values(6,'Aryan',51,56000),(7,'Ajeet',23,32000),(8,'Ravi',22,58000);
+
+select id,name,age,salary,count(age) from customer group by(age) having count(age)>1;
+
+select id,count(id),name,count(name),age,count(age),salary,count(salary) from customer group by id,name,age,salary having count(id)>1 and count(name)>1 and count(age)>1 and count(salary)>1;
+-- Delete Dupulicate Records
+-- =========================
+-- 1. Using Delete & Join 
+-- ----------------------
+delete c1 from customer as c1 inner join customer as c2 where c1.id > c2.id and c1.salary=c2.salary;
+select * from customer;
+truncate table customer;
+-- 2. Using Intermediate Table
+-- ---------------------------
+create table customer_copy like customer;
+insert into customer_copy select * from customer group by name,age,salary;
+drop table customer;
+alter table customer_copy rename to customer;
+select * from customer;
+-- Select Random records
+-- =====================
+select * from customer;
+select * from customer order by rand() limit 5;
+-- Extract()
+-- =========
+Select extract(day from '2021-03-12 10:23:44') as day;
+Select extract(minute_second from '2021-03-12 10:23:44') ;
+Select extract(minute_microsecond from '2021-03-12 10:23:44') as day;
+Select extract(year_month from '2021-03-12 10:23:44') as day;
+
+show processlist;
+show full processlist;
+-- Bit
+-- ===
+create table calender(years int,weeks int,days bit(7));
+insert into calender values(2020,20,B'1001');
+select * from calender;
+insert into calender values(2020,20,B'100100');
+select years,weeks,bin(days) from calender;
+select years,weeks,lpad(bin(days),7,'0') from calender;a2
+select years,weeks,lpad(bin(days),8,'*') from calender;
+-- Reset Auto_Increment
+-- ====================
+create table rai(id int not null auto_increment primary key,name varchar(20));
+insert into rai(name) values('Bibhu'),('jilu');
+select * from rai; 
+alter table rai auto_increment=7;
+-- Interval
+-- ========
+select '2020-06-12' + interval 5 day as datee;
+select '2020-06-12' - interval 5 day as datee;
+select '2020-06-12' + interval -5 day as datee;
+select '2020-06-12' - interval -5 day as datee;
+select date_add('2020-06-12',interval 1 month);
+select date_add('2020-06-12',interval 1 year);
+select date_sub('2020-06-12',interval 3 month);
+select timestampadd(minute,23,'2020-06-12');
+-- Login With Another Id
+-- =====================
+create user 'jilu'@'loclhost' identified by 'jilucse';
+select user from mysql.user;
+grant all privileges on *.* to 'jilu'@'loclhost';
+-- Triggers
+-- ========
+select * from customer;
+DELIMITER &&
+create trigger trig1 
+before insert on customer for each row
+Begin
+if new.age<0 then set new.age=0;
+end if;
+end &&
+
+insert into customer values(6,'abc',-23,34000);
+
+show triggers;
+show triggers from bibhu;
+show triggers in bibhu;
+show triggers from bibhu where table='customer';
+-- After Insert 
+-- ============
+select * from customer;
+
+create table customer_copy(id int,name varchar(20),age int,salary int,lastTime  time);
+
+DELIMITER &&
+create trigger trig2 
+after insert on customer for each row
+Begin
+insert into customer_copy values(new.id,new.name,new.age,new.salary,curtime());
+end &&
+
+insert into customer values(10,'def',23,34400);
+select * from customer_copy;
+
+-- Before Update
+-- =============
+select * from pqr;
+
+DELIMITER &&
+create trigger trig3
+before update on pqr for each row
+Begin
+if new.age<0 then set new.age=0;
+end if;
+end &&
+
+update pqr set age=-12 where id=100;
+insert into pqr values(11,'Animesh','Khan',-23);
+
+DELIMITER &&
+create trigger trig4
+before update on pqr for each row
+Begin
+if new.id>old.id then set old.LName='Behera';
+end if;
+end &&
+ update pqr set id=13 where id=12;
+ -- After Update
+ -- ============
+ select * from us1;
+ create table usern(username varchar(30),msg varchar(100));
+ 
+ DELIMITER &&
+create trigger trig5
+after update on us1 for each row
+Begin 
+insert into usern values(user(),concat('Update Record:',old.id,' Previous RollNO:',old.rollno,' New RollNo:',new.RollNo));
+end &&
+
+update us1 set rollno=rollno+1;
+select * from usern;
+-- Before Update
+-- =============
+select * from us2;
+create table us2_copy(id int primary key auto_increment,age2 int,name varchar(20),DeletionTime timestamp default now());
+
+DELIMITER &&
+create trigger trig6
+before delete on us2 for each row
+Begin
+insert into us2_copy(age2,name) values(old.age2,old.name);
+end &&
+
+delete from us2 where id=12;
+select * from us2_copy;
+delete from us2;
+-- After Delete
+-- ============
+select * from employee;
+insert into employee values(1909,'Bibhu',29000,'12/03/2020'),(1900,'jilu',31400,'30/12/2021');
+
+create table total_employee(tsalary decimal(10,2));
+insert into total_employee select sum(salary) from employee; 
+select * from total_employee;
+
+DELIMITER &&
+create trigger trig7
+after delete on employee for each row
+Begin
+update total_employee set tsalary=tsalary-old.salary;
+end &&
+
+delete from employee where id=1900;
+
+-- Change Password
+-- ===============
+alter user 'root'@'localhost' identified by 'jilucse@2002';
+-- Identify The Size Of the Database
+-- =================================
+select table_schema as 'Database Name',sum(data_length+index_length) 'Size in Bytes',Round(sum(data_length+index_length)/1024/1024,2) 'Size in MB' from information_schema.tables where table_schema='bibhu' group by table_schema;
+-- Identify The Size Of All the tables in a particular database
+-- ============================================================
+select table_name,Round(((data_length+index_length)/1024/1024),2) 'Size in MB' from information_schema.tables where table_schema='bibhu' order by (data_length+index_length) desc;
+ 
+ -- Math Functions
+ -- ==============
+select 4 div 2;
+
+select ceil(11.2); -- 12
+select ceiling(11.2); -- 12
+select floor(11.2); -- 11
+
+select ceil(11.5); -- 12
+select ceiling(11.5);-- 12
+select floor(11.5);-- 11
+
+select ceil(11.99); -- 12
+select ceiling(11.99); -- 12
+select floor(11.99); -- 11
+
+select ceil(-11.99); -- -11
+select ceiling(-11.99); -- -11
+select floor(-11.99); -- -12
+
+-- String Functions
+-- ================
+select ascii('a');
+select ELT(1,'Bibhu','jilu');
+select ELT(2,'Bibhu','jilu');
+select ELT(4,'Bibhu','jilu');
+SELECT MAKE_SET(1,'ab','b','c');
+
+select bin(23);
+select bit_length('abcd');
+select char(23,84,34,77,121);
+select character_length('abcdf');
+select length('abcndi');
+select OCTET_LENGTH('jilu');
+select concat_ws(':','jilu','Bibhu','Goutam');
+select concat('I',' am',' a',' CSE',' Student');
+
+select CONV('a',16,2); -- from base  to base 16 to 2
+select FIELD('foo', 'Hej', 'ej', 'Heja', 'hej', 'foo');
+SELECT FIND_IN_SET('b','a,b,c,d')  ;
+select FORMAT(12332.123456, 2) ;
+SELECT 0x616263;        
+SELECT HEX(255);     
+SELECT INSERT('Quadratic', 3, 3, 'What');   
+SELECT LEFT('foobarbar', 5);
+SELECT ucase('foobarbar');
+SELECT length('foobarbar');
+SELECT upper('foobarbar');
+SELECT LOCATE('bar', 'foobarbar');
+SELECT INSTR('foobarbar', 'bar');
+select lower('JIlU');
+SELECT LPAD('hi',10,'??');
+SELECT RPAD('hi',10,'??');
+SELECT LTRIM('  barbar');
+SELECT RTRIM('  barbar           ');
+SELECT OCT(12);
+select MID('Bibhudutt',2,4); -- MID(str,pos,len)
+select POSITION('substr' IN 'str'); -- POSITION(substr IN str)
+SELECT QUOTE('Don\'t!');
+SELECT QUOTE('Dont!');
+select REPLACE('Bibhudatta Behera','Behera','Gahan'); -- REPLACE(str,from_str,to_str)
+select reverse('jilu1');
+SELECT RIGHT('foobarbar', 4);
+SELECT SOUNDEX('Bibhudutt');
+SELECT SPACE(20);
+
+SELECT STRCMP('MOHD', 'MOHD');
+SELECT STRCMP('AMOHD', 'MOHD');
+SELECT STRCMP('MOHD', 'AMOHD');
+-- Compares two strings and returns 0 if both strings are equal, it returns -1 if the first argument is smaller than the second according to the current sort order otherwise it returns 1.
+select SUBSTRING("bibhudatta",4); -- SUBSTRING(str,pos);
+select SUBSTRING("bibhudatta" from 4);-- SUBSTRING(str FROM pos)
+select SUBSTRING("bibhudatta",4,3);-- SUBSTRING(str,pos,len)
+select SUBSTRING("bibhudatta" from 4 for 3); -- SUBSTRING(str FROM pos FOR len)
+SELECT SUBSTRING_INDEX('www.mysql.com.com2', '.', 3);
+SELECT TRIM('  bar   ');
+SELECT TRIM(LEADING 'x' FROM 'xxx&v&barxxx');
+SELECT TRIM(BOTH 'x' FROM 'xxxbarxxx');
+SELECT TRIM(TRAILING 'xyz' FROM 'xyzbarxxyz');
+SELECT UNHEX('4D7953514C'); -- Reverse of HEX().
+-------------------------------------------------------------------------------------------
+create table productO(Item varchar(20),Price int,Address varchar(20));
+insert into productO values('Saree',380,'Puri'),('T-Shirt',300,'Ganjam'),('Saree',450,'Bhadrak'),
+('Pent',300,'Balasore'),('T-Shirt',270,'Puri'),('pent',380,'cuttack'),('Saree',600,'Ganjam'),
+('Trax',380,'Puri');
+select item,sum(price) as Total from producto group by item;-- in Oracle name acts as a case sensitive type.
+-- ---------------------------------------------------------------------------------------------------------
+set autocommit=0;
+set autocommit=false;
+set autocommit=1;
+set autocommit=true;
+-- DDL statement is autocommited by default.But DML statement is temmporary by default.
+-- =========================================================================================
+-- Find 1st highest highest salary
+select * from emp;
+select * from emp e1 where 0=(select count(distinct salary) from emp e2 where e2.salary>e1.salary);
+select * from emp where salary=(select max(salary) from emp);
+-- Find 3rd highest highest salary
+select * from emp e1 where 2=(select count(distinct salary) from emp e2 where e2.salary>e1.salary);
+select * from emp where salary=(select max(salary) from emp where salary<(select max(salary) from emp where salary<(select max(salary) from emp)));
+-- Find lowest salary 
+select * from emp e1 where 0=(select count(distinct salary) from emp e2 where e2.salary<e1.salary);
+-- Find 3rd lowest salary 
+select * from emp e1 where 2=(select count(distinct salary) from emp e2 where e2.salary<e1.salary);
+-- Find top 3rd highest salaries
+select * from emp e1 where 3>(select count(distinct salary) from emp e2 where e2.salary>e1.salary);
+-- Find top 3rd lowest salaries
+select * from emp e1 where 3>(select count(distinct salary) from emp e2 where e2.salary<e1.salary);
+
+
+use bibhu;
+
+CREATE TABLE  FEE_STUDENT 
+   (ROLLNO VARCHAR(40) , 
+	NAME VARCHAR(40), 
+	EMAIL VARCHAR(40), 
+	SEX VARCHAR(40), 
+	COURSE VARCHAR(40), 
+	FEE int, 
+	PAID int, 
+	DUE int, 
+	ADDRESS VARCHAR(40), 
+	CONTACT VARCHAR(40), 
+    primary key(rollno)
+   );
+
+
+CREATE TABLE  FEE_ACCOUNTANT 
+   (	ID int, 
+	NAME VARCHAR(40), 
+	EMAIL VARCHAR(40), 
+	PASSWORD VARCHAR(40), 
+	ADDRESS VARCHAR(40), 
+	CONTACT VARCHAR(40), 
+	PRIMARY KEY (ID) 
+   );
+
+
+
+
+
+											
+
+													
+
+                                            **END OF MYSQL COURSE**
+											  ~~~~~~~~~~~~~~~~~~~
+											   ~~~~~~~~~~~~~~~~~
+												~~~~~~~~~~~~~~~
+												 ~~~~~~~~~~~~~
+												  ~~~~~~~~~~~
+												   ~~~~~~~~~
+													~~~~~~~
+													 ~~~~~
+													  ~~~
+													   ~

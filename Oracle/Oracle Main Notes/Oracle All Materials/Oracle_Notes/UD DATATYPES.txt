@@ -1,0 +1,225 @@
+USER - DEFINE DATATYPES:
+-----------------------------------------------
+User define datatypes are introduced in oracle 8.0 version.when pre define datatypes
+are not reaching to our requirements then we create our own datatypes are called as 
+User Define Datatypes.
+	The advantage of user define datatypes are reusability that means we can
+create datatype and reuse in multiple tables.oracle supports the following three types
+of user define datatypes.
+	
+	1. Object type (or) Composite type
+	2. Varray
+	3. Nested table.
+
+1. Object type (or) Composite type:
+---------------------------------------------------------
+> It allows group of values /elements of different datatypes.
+
+synatax:
+--------------
+create type <type name> as object(<col1> datatype[size],<col2> datatype[size],........);
+/
+
+EX:
+-----
+create type course_type as object(cid number(4),cname varchar2(10),fee number(10));
+/
+
+Testing:
+-------------
+Ex:
+create table students(sid number(4),sname varchar2(10),course course_type);
+Table created.
+
+SQL> insert into students values(101,'sai',course_type(1021,'oracle',1200));
+SQL> insert into students values(102,'ward',course_type(1022,'c',500));
+
+To Select:
+-----------------
+SQL> select s.sid,s.sname,s.course.cid,s.course.cname,s.course.fee from students s;
+(or)
+SQL> select s.sid,s.sname,s.course.cid cid,s.course.cname cname,s.course.fee fee from students s;
+
+To Update:
+-----------------
+SQL> update students s set s.course.fee=2000 where s.sid=101;
+
+To Delete:
+----------------
+SQL> delete from students s where s.course.cid=1022;
+
+
+****************************************************************************************
+
+2. Varray:
+----------------
+> It allows group of values /elements of same datatypes.Varray should declare with
+size.
+
+SYNTAX:
+--------------
+Create type <type name> is varray(size) of datatype[size];
+/
+
+Ex:
+-----
+create type mbno_array1 is varray(3) of number(10);
+/
+
+Testing:
+-------------
+SQL> create table employee(empno number(4),mbno mbno_array1);
+Table created.
+
+SQL> insert into employee values(1021,mbno_array1(9703542749,8502045789));
+SQL> insert into employee values(1022,mbno_array1(9632587412,8523691478,7412356896));
+
+****************************************************************************************
+3.Nested table:
+-------------------------
+> A table within another table is called as nested table.
+> Nested table also allow group of values /elements of diff. datatypes.
+> Nested table is not declare with size.
+
+Steps to create nested table:
+------------------------------------------------
+step1: Create an object type:
+------------------------------------------------
+synatax:
+--------------
+create type <type name> as object(<col1> datatype[size],<col2> datatype[size],........);
+/
+
+step2: Create nested table type:
+-----------------------------------------------------
+syntax:
+------------
+create type <type name> as table of <object type name>;
+/
+
+step3: Create a table:
+------------------------------------
+syntax:
+------------
+create table <tn>(<col1> <datatype>[size],......,<col n> <nested table type name>)
+nested table <col n name> store as <any name>;
+
+EX:
+------
+step1:
+create type addr_type as object(hno number(4),street varchar2(10),city varchar2(10));
+/
+
+step2:
+create type addr_array as table of addr_type;
+/
+
+step3:
+create table customer(cid number(4),cname varchar2(10),caddress addr_array)
+nested table caddress store as cust_addr;
+
+Testing:
+-------------
+SQL> insert into customer values(1,'sai',addr_array(addr_type(1122,'gandhi','hyd')));
+SQL> insert into customer values(2,'ward',addr_array(addr_type(1123,'ashok','che'),
+          addr_type(1124,'vasati','mum')));
+
+NOTE: We can also select ,update,delete,insert data within nested table by using 
+           the following syntax,
+
+syntax:
+-------------
+select / update / delete / insert (select <nested table column name> from <tn>);
+
+Ex:
+sql> select * from table(select caddress from customer where cid=1);
+
+sql> update table(select caddress from customer where cid=2) set hno=1024 where         hno=1124;
+
+sql> delete from table(select caddress from customer where cid=2) where city='mum';
+
+sql> insert into table(select caddress from customer where cid=1) 
+       values(1124,'yuvin','hyd');
+
+NOTE: In oracle we want to view user types  then follow the follwing datadictionary
+            is "USER_TYPES".
+Ex:
+sql> desc user_types;
+sql> select type_name from user_types;
+
+syntax to drop type:
+---------------------------------
+sql> drop type <type name> force;
+
+ex:
+DROP TYPE MBNO_ARRAY1 FORCE;
+
+
+
+
+
+
+
+
+
+		
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

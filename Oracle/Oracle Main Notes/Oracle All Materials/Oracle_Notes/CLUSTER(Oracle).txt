@@ -1,0 +1,135 @@
+CLUSTER:
+----------------
+> CLUSTER IS A DB OBJECT WHICH CONTAIN GROUP OF TABLES TOGETHER AND ALSO IT SHARES SAME DATABLOCK.
+
+> GENERALLY CLUSTER ARE USED TO IMPROVE PERFORMANCE OF THE JOINS  AND ALSO CLUSTERS ARE CREATED BY DBA ONLY.
+
+> CLUSTER TABLE MUST HAVE A COMMON COLUMN NAME.THIS COMMON COLUMN IS ALSO CALLED AS CLUSTER KEY.GENERALLY CLUSTER ARE CREATED AT THE TIME OF TABLE CREATION.
+
+STEPS TO CREATE CLUSTER IN ORACLE:
+--------------------------------------------------------------------
+STEP1: CREATE CLUSTER:
+--------------------------------------------
+SYNTAX:
+---------------
+CREATE CLUSTER <CLUSTER NAME>(<COMMON COLUMN NAME> <DT>[SIZE]);
+
+EX:
+SQL> CREATE CLUSTER EMP_DEPT(DEPTNO INT);
+Cluster created.
+
+STEP2:CREATE INDEX ON CLUSTER:
+--------------------------------------------------------------
+SYNTAX:
+--------------
+CREATE  INDEX <INDEX NAME> ON CLUSTER <CLUSTER NAME>;
+
+EX:
+SQL> CREATE INDEX ABC ON CLUSTER EMP_DEPT;
+Index created.
+
+STEP3:CREATE CLUSTER TABLES:
+---------------------------------------------------------
+SYNTAX:
+--------------
+CREATE TABLE <TN>(<COL1><DT>[SIZE],<COL2><DT>[SIZE]...........)
+CLUSTER <CLUSTER NAME> (COMMON COLUMN NAME);
+
+EX:
+SQL> CREATE TABLE EMP1(EMPNO INT,ENAME VARCHAR2(20),DEPTNO INT)
+CLUSTER EMP_DEPT(DEPTNO);
+Table created.
+
+SQL> CREATE TABLE DEPT1(DEPTNO INT,DNAME VARCHAR2(20),LOC VARCHAR2(20))CLUSTER EMP_DEPT(DEPTNO);
+Table created.
+
+SQL> DESC EMP1;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------
+ EMPNO                                                          NUMBER(38)
+ ENAME                                                          VARCHAR2(20)
+ DEPTNO                                                         NUMBER(38)
+
+SQL> DESC DEPT1;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------
+ DEPTNO                                                         NUMBER(38)
+ DNAME                                                          VARCHAR2(20)
+ LOC                                                            VARCHAR2(20)
+
+SQL> INSERT INTO EMP1 VALUES(1,'A',10);
+SQL> INSERT INTO EMP1 VALUES(2,'B',20);
+SQL> SELECT * FROM EMP1;
+
+     EMPNO ENAME                    DEPTNO
+---------- -------------------- 		----------
+         1 A                           	 10
+         2 B                            	 20
+
+SQL> INSERT INTO DEPT1 VALUES(10,'X','HYD');
+SQL> INSERT INTO DEPT1 VALUES(20,'Z','UP');
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME                	LOC
+----------      -------------------- 	--------------------
+        10     X                    	HYD
+        20     Z                    	UP
+
+
+NOTE: THESE TWO TABLES HAVING COMMON COLUMN(DEPTNO) AND HAVING IN THE SAME MEMORY SO THAT THEIR ROWID's ARE SAME.
+
+SQL> SELECT ROWID FROM EMP1;
+ROWID
+------------------
+AAAOZuAAEAAAAHeAAA
+AAAOZuAAEAAAAHfAAA
+
+SQL> SELECT ROWID FROM DEPT1;
+ROWID
+------------------
+AAAOZuAAEAAAAHeAAA
+AAAOZuAAEAAAAHfAAA
+
+NOTE:
+-----------
+SQL> DESC USER_CLUSTERS;
+SQL> SELECT CLUSTER_NAME FROM USER_CLUSTERS;
+
+CLUSTER_NAME
+------------------------------
+EMP_DEPT
+
+NOTE:
+----------
+SQL> DESC USER_TABLES;
+SQL> SELECT TABLE_NAME FROM USER_TABLES WHERE CLUSTER_NAME='EMP_DEPT';
+
+TABLE_NAME
+------------------------------
+DEPT1
+EMP1
+
+
+DROPPING CLUSTER WITH TABLES:
+------------------------------------------------------------
+SYNTAX:
+--------------
+SQL> DROP CLUSTER <CLUSTER NAME>;
+SQL> DROP CLUSTER EMP_DEPT;
+
+ERROR at line 1:
+ORA-00951: cluster not empty
+
+> TO OVERCOME THE ABOVE ERROR WE SHOULD USE
+" INCLUDING TABLES " CLAUSE TO DROP CLUSTER ALONG WITH TABLES.
+
+
+SQL> DROP CLUSTER EMP_DEPT INCLUDING TABLES;
+Cluster dropped.
+
+
+
+
+
+
+

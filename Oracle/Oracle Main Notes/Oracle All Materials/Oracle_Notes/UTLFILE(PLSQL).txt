@@ -1,0 +1,156 @@
+UTL_FILES IN ORACLE:
+---------------------------------------
+> WITH UTL FILE PACKAGE WE CAN WRITE DATA INTO AND READ DATA FROM FILES.
+
+MEMBERS OF UTL FILE PACKAGE:
+---------------------------------------------------------
+1.FILE_TYPE:
+---------------------
+IT IS A TYPE USED TO DECLARE FILE VARIBALE.
+
+SYNTAX:
+<FILE VARIBALE NAME> UTL_FILE.FILE_TYPE;
+
+2.FOPEN():
+------------------
+IT A FUNCTION USED TO OPEN FILE.
+
+SYNTAX:
+<FILE VARIABLE NAME> := UTL_FILE.FOPEN(DIRECTORY NAME,<FILE NAME>,MODE);
+
+Here, MODE ARE WRITE (W) ,READ (R),APPEND(A).
+
+3.PUT_LINE:
+--------------------
+IT IS A PROCEDURE USED TO WRITE DATA INTO FILE.
+
+SYNTAX:
+UTL_FILE.PUT_LINE(<FILE VARIABLE>,DATA);
+
+4.GET_LINE:
+--------------------
+IT IS A PROCEDURE USED TO READ DATA FROM FILE.
+
+SYNTAX:
+UTL_FILE.GET_LINE(<FILE VARIABLE>,<STRING VARIABLE>);
+
+5.FCLOSE:
+-----------------
+IT IS PROCEDURE USED TO CLOSE FILE.
+
+SYNTAX:
+UTL_FILE.FCLOSE(<FILE VARIABLE NAME>);
+----------------------------------------------------------------------------------------------------------------------------------------------------
+EX:
+SQL> CONN SYSTEM/MANAGER;
+Connected.
+SQL> GRANT CREATE ANY DIRECTORY TO SCOTT;
+Grant succeeded.
+
+SQL> CONN SCOTT/TIGER;
+Connected.
+SQL> CREATE DIRECTORY XYZ AS 'E:\SUDHAKAR';
+Directory created.
+
+SQL> CONN SYSTEM/MANAGER;
+Connected.
+SQL> GRANT READ,WRITE ON DIRECTORY XYZ TO SCOTT;
+Grant succeeded.
+
+EX1:Program to write data into text file:
+------------------------------------------------------------------
+SQL> DECLARE
+         FV UTL_FILE.FILE_TYPE;
+         BEGIN
+         FV:=UTL_FILE.FOPEN('XYZ','FILE1.txt','W');
+         UTL_FILE.PUT_LINE(FV,'HELLO');
+         UTL_FILE.FCLOSE(FV);
+         END;
+         /
+
+EX2: Program to read data from text file:
+-------------------------------------------------------------------
+SQL>DECLARE 
+         FV UTL_FILE.FILE_TYPE;
+         S VARCHAR2(1000);
+         BEGIN
+         FV:=UTL_FILE.FOPEN('XYZ','FILE1.txt','R');
+         LOOP
+         UTL_FILE.GET_LINE(FV,S);
+         DBMS_OUTPUT.PUT_LINE(S);
+         END LOOP;
+         EXCEPTION
+         WHEN NO_DATA_FOUND THEN
+         UTL_FILE.FCLOSE(FV);
+         END;
+       /
+
+
+OUTPUT:
+--------------
+HELLO
+
+EX3: Program to write employee data into text file:
+-------------------------------------------------------------------------------------
+DECLARE
+F1 UTL_FILE.FILE_TYPE;
+TYPE EMP_ARRAY IS TABLE OF EMP%ROWTYPE;
+E EMP_ARRAY;
+BEGIN
+F1:=UTL_FILE.FOPEN('XYZ','EMP.txt','W');
+SELECT * BULK COLLECT INTO E FROM EMP;
+FOR i IN E.FIRST..E.LAST
+LOOP
+UTL_FILE.PUT_LINE(F1,E(i).EMPNO||','||E(i).ENAME||','||E(i).SAL);
+END LOOP;
+UTL_FILE.FCLOSE(F1);
+END;
+/
+
+EX4: Program to read employee data from text file:
+------------------------------------------------------------------------------------
+DECLARE
+F1 UTL_FILE.FILE_TYPE;
+S VARCHAR2(1000);
+BEGIN
+F1:=UTL_FILE.FOPEN('XYZ','EMP.txt','R');
+LOOP
+UTL_FILE.GET_LINE(F1,S);
+DBMS_OUTPUT.PUT_LINE(S);
+END LOOP;
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+UTL_FILE.FCLOSE(F1);
+END;
+/
+
+NOTE:
+-----------
+TO VIEW DIRECTORY RELATED TO PHYSICAL PATH THEN USE THE FOLLOWING 
+DATADICTIONARY IS "ALL_DIRECTORIES ".
+
+EX:
+SQL> DESC ALL_DIRECTORIES;
+SQL> SELECT DIRECTORY_NAME,DIRECTORY_PATH FROM ALL_DIRECTORIES;
+
+DIRECTORY_NAME		DIRECTORY_PATH
+-------------------------------		------------------------------
+XYZ			E:\SUDHAKAR
+
+SYNTAX TO DROP DIRECTORY:
+----------------------------------------------------
+SQL> DROP DIRECTORY <DIRECTORY NAME>;
+
+EX:
+SQL> DROP DIRECTORY XYZ;
+
+
+
+
+
+
+
+
+
+
+

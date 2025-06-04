@@ -1,0 +1,121 @@
+Control Structures:
+-------------------------------
+ -> used to control flow of the program.
+ -> there are three types of control structures.
+
+I. Conditional Control Structures
+II. Branching Control Structures
+III. Iteration Control Structures
+
+  
+I. Conditional Control Structures:
+-------------------------------------------------------
+i. Simple if: It contains only true block.
+---------------
+syntax:
+------------
+if <condition> then
+     <exec-statements>;  -- true block
+End if;
+
+ii. if..else: It contains both true block & false block.
+-------------
+syntax:
+-----------
+ if <condition> then
+      <exec-statements>;  -- true block
+ else
+      <exec-statements>;  -- false block
+ end if;
+
+iii. nested if:
+-------------------
+ -> if within the if is called as nested if.
+syntax:
+-----------
+ if <condition> then
+      if <condition> then
+           <exec-statement>;
+      else
+           <exec-statements>;
+      end if;
+ else
+      if <condition> then
+           <exec-statement>;
+      else
+           <exec-statements>;
+      end if;
+ end if;
+  
+iv. if..else Lader:
+--------------------------
+syntax:
+-----------
+ if <condition> then
+      <exec-statements>;
+ elsif <condition> then
+      <exec-statements>;
+ elsif <condition> then
+      <exec-statements>;
+ ......................
+
+ else
+      <exec-statements>;
+ end if;
+
+II. Branching Control Sturctures:
+-----------------------------------------------------
+  i. Case
+
+syntax:
+-----------
+ Case <variable/Expression>
+ when <cond> then
+       <exec-statements>;
+ when <cond> then
+       <exec-statements>;
+ when <cond> then
+      <exec-statements>;
+ else
+   <exec-statement>;
+ end case;
+
+Iteration Control Statements:
+----------------------------------------
+i. Simple Loop
+-----------------------
+ -> it is an infinite loop.if we want break a simple loop then we should use "EXIT" statement.
+
+syntax:			
+-------
+Loop
+ <exec-statements>;
+End Loop;
+
+ii. While Loop:
+-------------------
+Syntax:
+------------
+While <condition> 
+Loop
+ <exec-statements>;
+ <incre/decre>;
+End Loop;
+
+iii. For Loop:
+--------------------
+ -> by default it is incremented by 1.
+
+syntax:
+-----------			
+for <index_variable> in <start_value>..<end_value>
+Loop
+ <exec-statements>;
+End Loop;
+
+
+
+
+
+
+

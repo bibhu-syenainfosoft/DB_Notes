@@ -1,0 +1,108 @@
+MERGE COMMAND:
+================
+- IT IS A DML COMMAND (ORACLE 9i).IT IS USED TO TRANSFER DATA FROM SOURCE TABLE TO DESTINATION TABLE.
+
+- IF DATA IS MATCHING IN BOTH TABLES THEN THOSE MATCHING DATA /ROWS ARE OVERRIDE ON DESTINATION TABLE BY USING "UPDATE COMMAND" WHERE AS DATA IS NOT MATCHING THEN THOSE UN MATCHING DATA / ROWS ARE TRANSFERING FROM SOURCE TABLE TO DESTINATION TABLE BY USING "INSERT COMMAND".
+
+SYNTAX:
+========
+MERGE  INTO <DESTINATION TABLE NAME> <ALIAS NAME> USING <SOURCE TABLE NAME> <ALIAS NAME> ON (<JOIINING CONDITION>)
+WHEN MATCHED  THEN
+UPDATE SET <DEST.TABLE ALIAS NAME>.<COLUMN NAME1>=<SOUR.TABLE ALIAS NAME>.<COLUMN NAME1>,...........................................................................................
+WHEN NOT MATCHED THEN
+INSERT(<DESTINATION TABLE COLUMNS>)VALUES(<SOURCE TABLE COLUMNS>);
+
+EX:
+STEP1:
+SQL> SELECT * FROM DEPT;
+
+STEP2:
+SQL> CREATE TABLE NEWDEPT AS SELECT * FROM DEPT;
+
+STEP3:
+SQL> INSERT INTO NEWDEPT VALUES(50,'DBA','HYD');
+SQL> INSERT INTO NEWDEPT VALUES(60,'SAP','MUMBAI');
+SQL> COMMIT;
+
+STEP4:
+SQL> SELECT * FROM NEWDEPT;------SOURCE TABLE
+SQL> SELECT * FROM DEPT;----------OLD TABLE
+
+STEP5:
+SQL> MERGE INTO DEPT D USING NEWDEPT S ON(D.DEPTNO=S.DEPTNO)
+	WHEN MATCHED THEN
+	UPDATE SET D.DNAME=S.DNAME,D.LOC=S.LOC
+	WHEN NOT MATCHED THEN
+	INSERT(D.DEPTNO,D.DNAME,D.LOC)VALUES(S.DEPTNO,S.DNAME,S.LOC);
+
+INSERT ALL:
+===========
+	- IT IS A DML COMMAND(ORACLE 9i).WHICH IS USED TO INSERT ROWS INTO MULTIPLE TABLES AT A TIME.BUT THE ROWS SHOULD BE AN EXISTING TABLE.
+
+SYNTAX:
+=======
+INSERT ALL INTO <TN1> VALUES(<COLUMN NAME1>,<COLUMN NAME2>,...........)
+INTO <TN2> VALUES(<COLUMN NAME1>,<COLUMN NAME2>,................................)
+INTO <TN3> VALUES(<COLUMN NAME1>,<COLUMN NAME2>,................................)
+....................................................................................................................................
+....................................................................................................................................
+INTO <TN n> VALUES(<COLUMN NAME1>,<COLUMN NAME2>,...............................)
+SELECT * FROM <OLD TABLE NAME>;
+
+EX:
+STEP1:
+======
+SQL> SELECT * FROM DEPT;-----------OLD TABLE
+
+STEP2: CREATING EMPTY TABLES:
+==============================
+SQL> CREATE TABLE TEST1 AS SELECT * FROM DEPT WHERE 1=0;
+SQL> CREATE TABLE TEST2 AS SELECT * FROM DEPT WHERE 1=0;
+SQL> CREATE TABLE TEST3 AS SELECT * FROM DEPT WHERE 1=0;
+
+STEP3:
+======
+SQL> INSERT ALL INTO TEST1 VALUES(DEPTNO,DNAME,LOC)
+	INTO TEST2 VALUES(DEPTNO,DNAME,LOC)
+	INTO TEST3 VALUES(DEPTNO,DNAME,LOC)
+	SELECT * FROM DEPT;
+
+STEP4:
+======
+SQL> SELECT * FROM TEST1;
+SQL> SELECT * FROM TEST2;
+SQL> SELECT * FROM TEST3;
+
+How to create a new table from the old table:
+=======================================
+syntax1:
+=======
+create table <new tn> as select * from <old tn>;
+
+> created a new table with copy of all rows & columns from old table.
+
+syntax2:
+=======
+ceate table <new tn> as select * from <old tn> where <false condition>;
+
+> CREATED a new table without copy the data from old table.
+
+How to copy data from one table to another table:
+===========================================
+syntax:
+=======
+insert into <destination table name> select * from <source table name>;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
