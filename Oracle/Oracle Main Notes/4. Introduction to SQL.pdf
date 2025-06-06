@@ -4400,3 +4400,41 @@ endobj
 startxref
 109134
 %%EOF
+15 0 obj
+<< /Contents 414 0 R /CropBox [0 0 612 792] /MediaBox [0 0 612 792] /Parent 7 0 R /Resources << /Font << /TT0 412 0 R>> /ProcSet [/PDF /Text]>> /Rotate 0 /StructParents 2 /Tabs /S /Type /Page /Annots [452 0 R 453 0 R]>>
+endobj
+451 0 obj
+<< /BaseFont /Helvetica /Type /Font /Subtype /Type1 /Encoding /WinAnsiEncoding>>
+endobj
+452 0 obj
+<< /Type /Annot /Subtype /FreeText /CreationDate (D:20250606051848) /Rect [138.95 335.7 319.11 360.05] /DA (/Helv 13 Tf 0 g) /Contents ( MySQL Does not support this) /F 4 /Border [0 0 0] /Rotate 0 /AP << /N 454 0 R>>>>
+endobj
+453 0 obj
+<< /Type /Annot /Subtype /FreeText /CreationDate (D:20250606051848) /Rect [59.84 58.35 608.4 135.35] /DA (/Helv 13 Tf 0 g) /Contents (* Oracle does not support adding a column before/after of any column, it supports only adding \n   in the last But Mysql Supports.\n* We can add multiple columns at a time.\n   alter table abc add \(course varchar2\(1000\),sign varchar2\(1000\)\);) /F 4 /Border [0 0 0] /Rotate 0 /AP << /N 455 0 R>>>>
+endobj
+454 0 obj
+<< /FormType 1 /Subtype /Form /Type /XObject /BBox [138.95 335.7 319.11 360.05] /Resources << /Font << /Helv 451 0 R>>>> /Matrix [1 0 0 1 -138.95 -335.7] /Length 203>> stream
+q
+1 0 0 1 0 0 cm
+138.94999694824222 335.69999694824224 180.16250610351565 24.350006103515625 re W n
+BT
+0 g
+0 Tc /Helv 13 Tf
+138.94999694824222 347.05000305175787 Td ( MySQL Does not support this) Tj
+ET
+Q
+endstream
+endobj
+455 0 obj
+<< /FormType 1 /Subtype /Form /Type /XObject /BBox [59.84 58.35 608.4 135.35] /Resources << /Font << /Helv 451 0 R>>>> /Matrix [1 0 0 1 -59.84 -58.35] /Filter /FlateDecode /Length 296>> stream
+xœmAoÂ †ïıïQ«@¡Ôìf²d—eYÖÄK/H©vi©5ñß«ÛE!|Èó>o8%$îÛÔ}"Öi‘IÁ8§œäŒ9D‘f‚*—9‘¹€àE*r&¨`¢ÅšBÊ”\WVP¯%“p[ØdS&ûxJÕ»éÎ Êæ™‡26‰Ír–cË³>ÒA=;øñx\€ªëÖî¡ ‡nì-v¦œY©&‡¡²—ûÓí?æ1ØîòÏQşÄv/T¦BL> ­E8tÊlÆ€‹?uø¾óé#³ÀÖ@+{ME?v¡=ÆÂ7·‡ŠUÚŞ<!£Mu×¾Aí"¢vzÊ¨fz78+§Ê±jFã÷Vó¥o÷öá¶š¿NÑoeòõş~]
+endstream
+endobj
+456 0 obj
+<< /Prev 109134 /Size 457 /Type /XRef /Root 1 0 R /Info 6 0 R /Index [15 1 451 6] /W [1 3 0] /ID [(İß5‡ïÄM¹\rİß¦kóY) (‰Ö 	È\\['›{	Å)] /Length 28>> stream
+¯²°± ±ì³±µG·L
+endstream
+endobj
+startxref
+112460
+%%EOF

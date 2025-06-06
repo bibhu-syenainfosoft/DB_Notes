@@ -62,8 +62,67 @@ A) INTRODUCTION TO DBMS
 9.  How many types of RDBMS are there.
 
 
-A) INTRODUCTION TO ORACLE
+
+B) INTRODUCTION TO ORACLE
 =========================
+1.  What is Platform and its types and Oracle includes which platform.
+2.  While installing what are the components got installed.
+3.  What is the work of Oracle client and Oracle server.
+4.  What are the sub components of Oracle.
+5.  What are the editions of Oracle.
+6.  What is the command to create a new user in Oracle.
+7.  Do the newly created user has the permission to create a table or connecting to that user.
+8.  What it is called to a newly created user.
+9.  Which command isused to give a permission to a newly created user to create table.
+10. What is the command to unlock a user.
+11. How to change password.
+12. What is the shutcut command for connection and change password.
+13. How can we connect an Oracle user in one line in Enter username section.
+14. What is the command to change the password of a particular user if we forgot.
+15. How to solve the TNS protocol adapter error.
+
+
+
+C) INTRODUCTION TO SQL
+======================
+1.  What are the sub languages of SQL  and what are the commands belongs to those sub languages.
+2.  What is the command to see the structure of a table.
+3.  What is the use of ALTER command and what are the types explain each one.
+4.  Does Oracle supports adding a new column after/before of any column.
+5.  What is the command to add multiple columns of a table at a time.
+6.  What is RECYCLEBIN, FLASHBACK and PURGEcommand.
+7.  What is the command to delete a table from recyclebin.
+8.  What is the command to recover a table from recyclebin.
+9.  What is the command to delete a table permanently.
+10. What is the command to clear recyclebin.
+11. What is substitutional operator and what are the types, explain each one.
+12. What is the difference between delete and truncate.
+13. What is the command to see the all the tables in DB.
+14. What is PAGESIZE and LINES command.
+15. What is the default value and range for pagesize & what is the range for lines command.
+16. What is the command to clear the sql plus console.
+17. What is alias name and how many ways we can use it.
+18. What is concatenation operator.
+19. What is the use of DISTINCT command.
+20. What is the use of INSERT ALL command.
+21. What is the purpose of MERGE command and write the syntax for it.
+
+
+
+D) DATATYPES IN SQL
+===================
+1.  What are the Data types are there in SQL.
+2.  What is the default value for number when we will take int data.
+3.  What is scale and precision.
+4.  What is unicode and non unicode characters.
+5.  What are the types of unicode and nonunicode chars.
+6.  What is LONG data type.
+8.  What is DATE and TIMESTAMP datatype.
+9.  What is the default format of date and time.
+10. What is RAW and LONG RAW datatype.
+11. What are the types of LOB datatype.
+12. What is the size of the following data types.
+    CHAR, VARCHAR2, CLOB, RAW, DATE, TIMESTAMP, BLOB, NCHAR, NVARCHAR2, NCLOB, LONG RAW.
 
 
 
