@@ -3388,3 +3388,30 @@ trailer
 startxref
 122988
 %%EOF
+14 0 obj
+<< /Type /Page /MediaBox [0 0 612 792] /Resources << /Font << /F2 21 0 R>> /ExtGState << /GS7 22 0 R /GS8 23 0 R>> /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]>> /Contents 32 0 R /Group << /Type /Group /S /Transparency /CS /DeviceRGB>> /Tabs /S /StructParents 7 /Parent 2 0 R /Annots [277 0 R]>>
+endobj
+276 0 obj
+<< /BaseFont /Helvetica /Type /Font /Subtype /Type1 /Encoding /WinAnsiEncoding>>
+endobj
+277 0 obj
+<< /Type /Annot /Subtype /FreeText /CreationDate (D:20250607141304) /Rect [274.4 561.93 608.73 595.33] /DA (/Helv 10 Tf 0 g) /Contents (Note: MySQL does not support cube clause, it only supports rollup clause.\n    select branch, count\(*\) from stu group by branch with rollup;) /F 4 /Border [0 0 0] /Rotate 0 /AP << /N 278 0 R>>>>
+endobj
+278 0 obj
+<< /FormType 1 /Subtype /Form /Type /XObject /BBox [274.4 561.93 608.73 595.33] /Resources << /Font << /Helv 276 0 R>>>> /Matrix [1 0 0 1 -274.4 -561.93] /Filter /FlateDecode /Length 238>> stream
+xœmŽMOÃ0†ïýïqC#Ëg›Â	‰ MTâ²Ëše(kJ>@ý÷„mÜ°eË²_?ögÅ@‹_²9U¼‘DÒb5£B1UK¨š‘–·­nk.)BH"DI­¹f\•ÎeKPÅÕh¡,Þ1T]E±/Ñ,Ÿ¬û+õîßCZQµ¼þe0Žn‹Ù«Oö/ÓÛê[o#Ÿó8ú`roaÜ&G»À1ÁnúFï\¯s2G÷Qþ¸e‚¨3Å¢uÖ$ôa3˜ÃÆç!­g7ë9vÁŸSÆ>øé§«ßÇt¸¢ïÏÌÇ®Zý Å›Y
+
+endstream
+endobj
+xref
+14 1
+0000128666 00000 n
+276 3
+0000128979 00000 n
+0000129077 00000 n
+0000129427 00000 n
+trailer
+<< /Prev 122988 /Size 279 /Root 1 0 R /Info 6 0 R /ID [(W2hFZO†ñPNMs) ([UGÇŽŸeg^·^Zûz)]>>
+startxref
+129889
+%%EOF

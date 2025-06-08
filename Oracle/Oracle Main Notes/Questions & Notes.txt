@@ -126,5 +126,167 @@ D) DATATYPES IN SQL
 
 
 
+E) OPERATORS IN SQL
+===================
+1.  What are the types of Operators are there in Oracle. 
+2.  What are the possible symbols for not equals to operator.
+3.  What is IN Operator.
+4.  What is Between Operator.
+5.  Write a Query "select all the employees whose salary is not greater than or equals to 30000"
+6.  What are the wildcard chars are there in LIKE operator and what is the meaning of that.
+7.  Write a Query "Display the employees whose name ends with ‘S’ in EMP table"
+8.  Write a Query "Display the employees whose names are having second letter as ‘L’ in EMP table"
+9.  Write a Query "WHOSE EMPLOYEE NUMBER STARTS WITH 7 AND ENDS WITH 8 DIGIT"
+10. Write a Query "WHO ARE JOININED IN THE YEAR 1981"
+11. Write a Query "WHO ARE JOINED IN THE MONTH OF DEC"
+12. Write a Query "WHOSE EMPLOYEE NAME IS HAVING "#" CHAR"
+13. Write a Query "WHOSE EMPLOYEE NAME IS HAVING "_" CHAR"
+14. What is IS NULL Operator.
+15. What is the result for these operation.
+    1000 + 0 = ?
+    1000 - 0 = ?
+    1000 * 0 = ?
+    1000 / 0 = ?
+16. What is NVL() and NVL2() Operator.
+17. Write a Query "Waq to update all employee commissions in a table based on the following conditions,
+    i) IF employee comm is null then update those employees comm as 600.
+    ii) IF employee comm is not null then update those employees comm as comm+500.
+18. What is Set operator and what is the difference between Set Operator and Join Clause.
+Ans.Set Operator is used to fetch the result from 2 select query and add into a single result set where as 
+    join clause is used to fetch the data from multiple tables. In Set operator the same data type of column 
+    is fetched where as in Join operator different data type of column is fetched.
+19. What are the Set operator are there and explain each one.
+20. What are the restrictions for set operator.
+21. Write a Query to fetch the data from multiple tables using Set Operator.
+
+
+
+F) FUNCTIONS IN SQL
+===================
+1.  How many types of Functions are there in Oracle.
+2.  What are the types of Predefined function.
+3.  What are the single row functions are there.
+4.  What is Dual.
+5.  Determine the answer of these queries.
+    select Abs(-12) From Dual;
+    select Ceil(9.0), ceil(9.8) From Dual;
+    select floor(9.0), floor(9.8) From Dual;
+    select Round(5.50),Round(32.456,2) From Dual;
+    select Trunc(5.50),Trunc(32.456,2) From Dual;
+    select Ltrim('Xxxxxxsai','X') From Dual;
+    select Rtrim('Saixxxxxxx','X') From Dual;
+    select Trim('X' From 'Xxxxxxsaixxxx') From Dual;
+    select Lpad('Hello',10,'@') From Dual;
+    select Replace('Hello','L','Abc') From Dual;
+    select Translate('Hello','Elo','Xyz') From Dual;
+    select Substr('Hello',2,3) From Dual;
+    select Instr('Hello Welcome','E',5,2),Instr('Hello Welcome','E',-1,3)  From Dual;
+    select Months_Between('05-Jan-81','05-Jan-80'),Months_Between('05-Jan-80','05-Jan-81') From Dual;
+6.  What are the possible year, month, day, quarter, time formats are there.
+7.  Write a Query for these operations.
+    To Display Employee Who Are Joined In Year 1982 By Using To_Char() Function.
+    To Display Employee Who Are Joined In Feb, May, Dec Months By Using To_Char().
+    To Display Employee Who Are Joined On "Friday" By Using To_Char().
+    Who Are Joined In 2ND Quater Of 1981.
+8.  What is the solution for removing extra memory for for the day/month format.
+9.  What are the multiple row functions are there.
+10. How many types of count() are there gimme with an example.
+ Test
+--------
+Sno Name
+--- ----
+101 A          select Count(*) From Test;
+102 B          select Count(Distinct Name) From Test;
+103            select Count(Name) From Test;
+104 C
+105 A
+106 C
+
+
+
+F) CLAUSES IN SQL
+=================
+1.  What is a Clause and what are the types of Clause explain each one.
+2.  What is the difference between WHERE And HAVING Clause.
+4.  At the time of sorting in ascending/decending order nulls are coming in first/last.
+5.  Write a Query to bring null values in the first at the time of sorting in ascending order.
+6.  What is the Order of execution of Clauses.
+7.  What is Grouping_Id() and what are the Id numbers and what it defines.
+8.  Write Queries for below given condition.
+    Arrange Employee Deptno's In Ascending Order And Those Employee Salaries in Descending Order From Each 
+    Deptno Wise.
+    Find Out No. Of Employee Working In Each Job.
+    Display No.Of Employee Working In Each Job Along With Deptno Wise.
+    Calculate Deptno Wise Total 	salary Where Deptno's Are 10,20.
+    Find Out No.Of Employee Of Each Job In Which Job No.Of Employee Are More Than 3.
+9.  What is Rollup and Cube clause.
+10. Select Deptno, Job, Count (*), Grouping_ID (Deptno, Job) From Emp Group by Cube (Deptno, Job) Order By   
+    Deptno; //Determine its result
+
+
+
+G) JOINS IN SQL
+===============
+1.  What is the use of join query.
+2.  What is ANSI and NON ANSI Joins and what are the examples.
+3.  What is Equi join and what is the rule for it.
+4.  For Join is it necessary to have a relationship between 2 tables.
+5.  Why ANSI Joins are there.
+6.  What is Inner and Outer join, what are the example of Outer join explain each one.
+7.  Can we Convert ANSI joins to Non ANSI joins, if yes then write the Query.
+8.  How to write the Query for NON ANSI Join for Full Outer join.
+9.  What is NON ANSI Join.
+10. What is Natural join.
+11. What is Self join, in how many ways we can write it.
+12. What is the use of USING clause in joins.
+13. At the time of USING clause is it required alias name for a table.
+14. Write a Query for USING clause.
+15. How to join 3 tables using ANSI and NON ANSI format.
+16. What is the difference between JOIN and SET operator.
+17. What is Cross/Cartesian join.
+
+
+
+H) CONSTRAINTS IN SQL
+=====================
+1.  What are the types of Data Integrity.
+2.  What are the types of Declarative/Pre-defined Data Integrity and define each one.
+3.  What is constraints and what are the constraints are there.
+4.  We can apply constraints in how many level.
+5.  What is Unique and composite unique constraint.
+6.  What is Not Null constraint.
+7.  What is the difference between Unique and Not Null constraint.
+8.  What is Check constraint.
+9.  What is Primary and composite primary key.
+10. Does Not Null constraint supports Table level constraint apply.
+11. What is Foreign key and what are the rules for the foreign key.
+12. What are the types of rules for establishing rule for table.
+13. What are the rules for deleting a primary key column along with foreign key column.
+14. What is predefined and User defined constraint name.
+15. What is Data Dictionary.
+16. Why Data Dictionary is called as read only tables.
+17. Which table is used to view all the constraint information.
+18. Which table is used to view the constraint name along with column name.
+19. How to view the what is the condition that is applied on a column through CHECK constraint.
+20. Which table is used to view all the columns of a particular table.
+21. Write the query to find out the no of columns of a particular table.
+22. How to add a constraint for a particular table, write the query for all constraints.
+23. How to drop a constraint from an existing table.
+24. How to drop a primary key constraint of it has a foreign key relationship, In how many ways we can do it.
+25. How to rename a constraint name.
+26. How to disable/enable a constraint, Enable/Disable constraint means how it works.
+27. In which scenario we will use Nonvalidate for enabling a constraint.
+28. What is default constraint.
+29. How to add/drop a default value for a column.
+30. How to view the default value in a table.
+
+
+
+I) SUBQUERIES IN SQL
+========-===========
+
+
+
+
 
 
