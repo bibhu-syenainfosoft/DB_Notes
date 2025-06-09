@@ -39,10 +39,6 @@
 * Size of the database is unknown.Making This type question is foolishness,People will laugh on us.
 
 * MySQL does not support NVL(),NVL2() function.
-* Share Lock means multiple users can lock a table.
-* Exclusive lock means only user will lock a table.
-
-
 
 
 
@@ -244,6 +240,9 @@ G) JOINS IN SQL
 15. How to join 3 tables using ANSI and NON ANSI format.
 16. What is the difference between JOIN and SET operator.
 17. What is Cross/Cartesian join.
+18. In MySQL How to perform the Intersect/Minus functionality.
+Ans. SELECT t1.col1, t1.col2 FROM table1 t1 INNER JOIN table2 t2 ON t1.col1 = t2.col1 AND t1.col2 = t2.col2; // For Intersect
+     SELECT t1.col1, t1.col2 FROM table1 t1 LEFT JOIN table2 t2 ON t1.col1 = t2.col1 AND t1.col2 = t2.col2 WHERE t2.col1 IS NULL; // For Minus
 
 
 
@@ -284,6 +283,180 @@ H) CONSTRAINTS IN SQL
 
 I) SUBQUERIES IN SQL
 ========-===========
+1.  What is a Subquery and what is its components.
+2.  What is Co-Related Subquery and Non Co-Related Subquery.
+3.  What are the types of Non Co-Related Subquery.
+4.  What is Single Row Subquery.
+5.  What is Multiple Row Subquery.
+6.  What is Multiple Column Subquery.
+7.  What is Pseudo columns.
+8.  In which scenario ROWID is used.
+9.  Write the query for deleting all the duplicate rows except one row.
+10. What is Inline View and why we use using Inline View.
+11. What are the Analytical functions are there.
+12. What is the difference between rank(0 and dense_rank() function.
+13. Partition and Order by which is mandatory and which is optional.
+14. What is Exists Operator.
+15. What is Scalar Subquery.
+
+16. Write the Queries for the below conditions.
+  * WHO ARE GETTING THE FIRST HIGH SALARY FROM EMP TABLE.
+  * WHOSE EMPLOYEE JOB IS SAME AS THE JOB OF 'SMITH’.
+  * WHOSE EMPLOYEE JOB IS SAME AS THE JOB OF "BLAKE" AND WHO ARE EARNING SALARY MORE THAN "BLAKE" SALARY.
+  * DISPLAY SENIOR EMPLOYEE.
+  * TO FIND SECOND HIGH. SALARY FROM EMP TABLE.
+  * DISPLAY EMPLOYEE DETAILS WHO ARE GETTING SECOND HIGH. SALARY IN EMP TABLE.
+  * TO DISPLAY NO. OF EMPLOYEE OF DEPARTMENT NUMBERS.IN WHICH DEPTNO NO. OF EMPLOYEE IS LESS THAN THE NO. OF EMPLOYEE OF DEPTNO IS 20.
+  * TO UPDATE EMPLOYEE SALARY WITH MAX.SALARY OF EMP TABLE WHOSE EMPNO IS 7900.
+  * TO DELETE EMPLOYEE DETAILS FROM EMP TABLE WHOSE JOB IS SAME AS THE JOB OF 'SCOTT'.
+  * TO DISPLAY EMPLOYEE DETAILS WHOSE EMPLOYEE JOB IS SAME AS THE JOB OF THE EMPLOYEE "SMITH","CLARK".
+  * TO DISPLAY EMPLOYEE DETAILS WHO ARE GETTING MIN, MAX SALARIES.
+  * TO DISPLAY EMPLOYEES WHO ARE EARNING HIGHEST SALARY FROM EACH JOB WISE.
+  * TO DISPLAY EMPLOYEES WHOSE SALARY IS MORE THAN OF ALL "SALESMAN"SALARY.
+  * TO DISPLAY EMPLOYEES WHO ARE EARNING HIGHEST SALARY FROM EACH JOB WISE BY USING MULTIPLE ROW SUBQUERY.
+  * TO DISPLAY EMPLOYEE WHOSE JOB, MGR ARE SAME AS THE JOB, MGR OF THE EMPLOYEE "SCOTT".
+  * TO FETCH THE FIRST AND SECOND ROW EMPLOYEE DETAILS FROM EMP TABLE BY USING ROWNUM.
+  * TO FETCH THE FIRST FIVE ROWS FROM EMP TABLE BY USING ROWNUM.
+  * TO FETCH THE FIFTH ROW EMPLOYEE DETAILS FROM EMP TABLE BY USING ROWNUM.
+  * TO FETCH FROM 3RD TO 9TH ROW FROM EMP TABLE BY USING ROWNUM.
+  * TO FETCH THE LAST TWO ROWS FROM EMP TABLE BY ROWNUM.
+  * TO DISPLAY EMPLOYEE WHOSE EMPLOYEE ANNUAL SALARY IS MORE THAN 25000.
+  * TO DISPLAY 5TH HIGHEST SALARY OF EMPLOYEE FROM EMP TABLE BY USING ROWNUM ALONG WITH INLINE VIEW.
+  * TO DISPLAY 3RD POSITION ROW FROM EMP TABLE BY USING ROWNUM ALIAS NAME ALONG WITH INLNE VIEW.
+  * TO DISPLAY 1ST,3RD,5TH,7TH,9TH ROWS FROM EMP TABLE BY USING ROWNUM ALIAS NAME ALONG WITH INLINE VIEW.
+  * TO DISPLAY EVEN POSITION ROWS FROM EMP TABLE BY USING ROWNUM ALIAS NAME ALONG WITH INLINE VIEW.
+  * TO DISPLAY FIRST ROW AND LAST ROW FROM EMP TABLE BY USING ROWNUM ALIAS NAME ALONG WITH INLINE VIEW.
+  * TO DISPLAY 3RD HIGHEST SALARY EMPLOYEE DETAILS FROM EMP TABLE IN EACH DEPTNO WISE BY USING DENSE_RANK () ALONG WITH INLINE VIEW.
+  * TO DISPLAY THE 4TH SENIOR MOST EMPLOYEE FROM EACH JOB WISE.
+  * TO FIND OUT EMPLOYEE WHO ARE GETTING FIRST HIGHEST SALARY FROM EMPLOYEE TABLE(CORELATED SUBQUERY).
+  * TO FIND OUT EMPLOYEE WHO ARE GETTING FOURTH HIGHEST SALARY FROM EMPLOYEE TABLE(CORELATED SUBQUERY).
+  * TO DISPLAY TOP 3 HIGHEST SALARIES EMPLOYEE DETAILS FROM EMPLOYEE TABLE.
+
+
+
+J) TCL IN SQL
+=============
+1.  What are the TCL command are there.
+2.  What are the types of Commit command explain each once.
+3.  Once the transaction is committed can we rollback.
+4.  What is the rule for Transaction.
+5.  What is a Savepoint.
+6.  What is ACID property, explain in Brief.
+
+
+
+K) DB SECURITY(DCL) IN SQL
+==========================
+1.  What is Authentication & Authorization.
+2.  What are the DCL commands are there.
+3.  What is Grant & Revoke command.
+4.  Can password and username be changed.
+5.  Is username and password case sensitivity.
+6.  What is the privilege name to provide an user for inserting data into a table.
+7.  What is Privilege and what are the types of privilege.
+8.  DBA/Developer, Who provides which type of privilege to an user.
+9.  Which table is used to view the information of a system privilege related to an user.
+10. What is object privilege.
+11. Gimme the examples of System privilege as well as Object privilege.
+12. Which table is used to view the information of a privilege and grantor.
+13. Which table is used to view the information of a privilege and grantee(who receives the privileges).
+14. What is the use of "With Grant Option".
+15. What is the use of "Create Session" privilege.
+16. What is the table name to view all the users.
+17. What is a Role and what is the use of Role in real time environment.
+18. What is the syntax to create a role, assigning a privilege to a role and assigning a role to a privilege.
+19. Which table is used to view the system privileges related to a role.
+20. Which table is used to view the object privileges related to a role.
+21. What is the table name to view the roles granted to an user.
+22. Can we use "with grant option" with the Role.
+
+
+
+L) SYNONYMS IN SQL
+==================
+1.  What is a Synonym and why it is used.
+2.  What are the types of Synonyms are there.
+3.  What is the command to create a public/private Synonym.
+4.  Which table is used to view the information of all the Synonym.
+5.  Which table is used to view all the Private/Public Synonym information.
+6.  What is the syntax to drop a Private/Public Synonym.
+
+
+
+M) VIEWS IN SQL
+===============
+1.  What is a View.
+2.  What is Simple and Complex View.
+3.  Can we perform DML operations for Simple/Complex Views.
+4.  What is "With check option" and "With read only".
+5.  What are the roles for a complex view.
+6.  Which is correct one for Complex View.
+
+    CREATE VIEW CV1 AS SELECT * FROM STUDENT S INNER JOIN COURSE C ON S.CID=C.CID;
+    CREATE VIEW CV1 AS SELECT * FROM STUDENT S INNER JOIN COURSE C USING(CID);
+
+    CREATE VIEW CV3 AS SELECT DEPTNO, SUM(SAL) AS SUMSAL FROM EMP GROUP BY DEPTNO;
+    CREATE VIEW CV3 AS SELECT DEPTNO, SUM(SAL) FROM EMP GROUP BY DEPTNO;
+
+7.  When there is a chance to perform DML operations on complex view.
+8.  What is Force Views.
+9.  What is the table name to view all the views information.
+10. What are the pros of Views.
+11. What is the difference between Synonym and View.
+12. What is Materialized View.
+13. What is the difference between View and Materialized View.
+14. What is the Query for creating a Materialized view.
+15. While inserting a data inside of a table after the views are created, will it ve updated inside View and Materialized View.
+16. What is the default command to update the Materialized view while performing DML operation on a table.
+17. What is On Demand and On Commit.
+18. What is the rule for creating a Materialized view through refresh on commit.
+19. Which table is used to view the information of a Materialized view.
+20. What is the command to drop a Materialized view.
+
+
+
+N) INDEXES IN SQL
+=================
+1.  What is Index mechanism.
+2.  How many types of searching mechanism are there.
+3.  In how many ways Index scan happens.
+4.  Which table is used to view the information of an Index and column name.
+5.  How many types of Indexing mechanism are there.
+6.  What is Simple, Complex, Unique, Functional based, Bitmap Index.
+7.  What is Cardinality.
+8.  What is the formula to find out the Cardinality.
+9.  Which table is used to view the information about a Index name and Index type.
+
+
+ 
+O) PARTITIONS IN SQL
+====================
+1.  What is Partitions.
+2.  What are the types of Partitions.
+3.  Which table is used to view all the partition information.
+4.  How to a new Partition to an existing partitioned table.
+5.  What is the table name to view whether the table is partitioned or not.
+
+
+
+P) SEQUENCES IN SQL
+===================
+1.  What is a Sequence.
+2.  What are the parameters for creating a Sequence.
+3.  What is the min and max size for "CACHE" parameter.
+4.  What are the seudo columns are required for Sequence.
+5.  How to alter a Sequence.
+6.  Can we alter all the parameters of a Sequence.
+7.  Which table is used to view all the sequences.
+8.  What is the default cache size while creating a sequence without providing cache size. //20
+
+
+
+Q) LOCKS IN SQL
+===============
+1.  
+
+
 
 
 
