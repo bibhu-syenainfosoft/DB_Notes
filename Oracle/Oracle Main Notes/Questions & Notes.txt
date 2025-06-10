@@ -200,7 +200,7 @@ Sno Name
 
 
 
-F) CLAUSES IN SQL
+G) CLAUSES IN SQL
 =================
 1.  What is a Clause and what are the types of Clause explain each one.
 2.  What is the difference between WHERE And HAVING Clause.
@@ -221,7 +221,7 @@ F) CLAUSES IN SQL
 
 
 
-G) JOINS IN SQL
+H) JOINS IN SQL
 ===============
 1.  What is the use of join query.
 2.  What is ANSI and NON ANSI Joins and what are the examples.
@@ -246,7 +246,7 @@ Ans. SELECT t1.col1, t1.col2 FROM table1 t1 INNER JOIN table2 t2 ON t1.col1 = t2
 
 
 
-H) CONSTRAINTS IN SQL
+I) CONSTRAINTS IN SQL
 =====================
 1.  What are the types of Data Integrity.
 2.  What are the types of Declarative/Pre-defined Data Integrity and define each one.
@@ -281,7 +281,7 @@ H) CONSTRAINTS IN SQL
 
 
 
-I) SUBQUERIES IN SQL
+J) SUBQUERIES IN SQL
 ========-===========
 1.  What is a Subquery and what is its components.
 2.  What is Co-Related Subquery and Non Co-Related Subquery.
@@ -334,7 +334,7 @@ I) SUBQUERIES IN SQL
 
 
 
-J) TCL IN SQL
+K) TCL IN SQL
 =============
 1.  What are the TCL command are there.
 2.  What are the types of Commit command explain each once.
@@ -345,7 +345,7 @@ J) TCL IN SQL
 
 
 
-K) DB SECURITY(DCL) IN SQL
+L) DB SECURITY(DCL) IN SQL
 ==========================
 1.  What is Authentication & Authorization.
 2.  What are the DCL commands are there.
@@ -372,7 +372,7 @@ K) DB SECURITY(DCL) IN SQL
 
 
 
-L) SYNONYMS IN SQL
+M) SYNONYMS IN SQL
 ==================
 1.  What is a Synonym and why it is used.
 2.  What are the types of Synonyms are there.
@@ -383,7 +383,7 @@ L) SYNONYMS IN SQL
 
 
 
-M) VIEWS IN SQL
+N) VIEWS IN SQL
 ===============
 1.  What is a View.
 2.  What is Simple and Complex View.
@@ -415,7 +415,7 @@ M) VIEWS IN SQL
 
 
 
-N) INDEXES IN SQL
+O) INDEXES IN SQL
 =================
 1.  What is Index mechanism.
 2.  How many types of searching mechanism are there.
@@ -429,7 +429,7 @@ N) INDEXES IN SQL
 
 
  
-O) PARTITIONS IN SQL
+P) PARTITIONS IN SQL
 ====================
 1.  What is Partitions.
 2.  What are the types of Partitions.
@@ -439,7 +439,7 @@ O) PARTITIONS IN SQL
 
 
 
-P) SEQUENCES IN SQL
+Q) SEQUENCES IN SQL
 ===================
 1.  What is a Sequence.
 2.  What are the parameters for creating a Sequence.
@@ -452,9 +452,68 @@ P) SEQUENCES IN SQL
 
 
 
-Q) LOCKS IN SQL
+R) LOCKS IN SQL
 ===============
-1.  
+1.  What is Locking mechanism.
+2.  What is Row level Locks and Table level Locks.
+3.  How to release a lock.
+4.  What is Deadlock, how to achive deadlock mechanism.
+5.  What are the types of Table level locking.
+6.  What is the difference between share lock and exclusive lock.
+
+
+
+S) CLUSTERS IN SQL
+==================
+1.  What is Cluster and why it is used and it is created by Developer/DBA.
+2.  What is the command to create a cluster and, create an index for a cluster and creating a table through cluster.
+3.  How to findout the cluster common data block functionality.
+4.  Which table is used to view the cluster information.
+5.  Which table is used to view what are the tables are there for a particular cluster name.
+6.  What is the syntax to drop a cluster along with the tables.
+
+
+
+T) USERDEFINED DATA TYPES IN SQL
+================================
+1.  What is User Defined data types and what is the usage of it.
+2.  What is Object/Composite type.
+3.  What is the syntax to create a composite type.
+4.  What is the syntax to select, delete, update some record for a composite data type.
+5.  What is Varray data types.
+6.  How Varray is different from Composite type.
+7.  What is the syntax to create a Varray data type.
+8.  What is Nested Table.
+9.  What is the syntax to create a Nested Table type.
+10. What is the syntax to create a table with nested type.
+11. What is the syntax to select, delete, update some record for a Nested Table data type.
+12. Which table is used to view the information of User defined data types.
+13. What is the syntax to drop an User defined data type.
+
+
+
+U) NORMALIZATION IN SQL
+=======================
+1.  What is Normalization and what are the problems that are resolved by Normalization.
+2.  What is the Insertion, Deletion & Updation problem are there if a table is not properly Normalized.
+3.  How many types of Normal forms are there.
+4.  If a table to be 1st Normal Form then what are the conditions that it should satisfy.
+5.  When a table is called 2nd Normal Form.
+6.  What is Dependency and partial dependency.
+7.  Is there any relation with composite primary key for partial dependency.
+8.  When a table is called 3rd Normal Form.
+9.  What is Transitive Dependency.
+10. What is Super key and Candidate key.
+11. When a table is called BCNF.
+12. When a table is called 4th Normal Form.
+13. What is Multivalued dependency/attribute.
+14. Which problem will called if the table is not satisfys 4th Normal Form.
+15. When a table is called 5th Normal Form.
+
+
+/*********************************************************************************************************************************************************************/
+
+  
 
 
 
